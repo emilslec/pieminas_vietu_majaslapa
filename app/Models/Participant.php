@@ -9,10 +9,10 @@ class Participant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['person_id', 'role_id', 'object_id'];
+    protected $fillable = ['person_id', 'role_id', 'monument_id'];
     public function object()
     {
-        return $this->belongsTo(Object::class);
+        return $this->belongsTo(Monument::class);
     }
     public function role()
     {

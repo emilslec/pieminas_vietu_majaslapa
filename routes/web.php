@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MonumentController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/monuments');
+
+Route::resource('/monuments', MonumentController::class);

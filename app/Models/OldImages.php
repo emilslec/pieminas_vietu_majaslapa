@@ -9,9 +9,9 @@ class OldImages extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'monument_id'];
     public function object()
     {
-        return $this->belongsTo(Object::class);
+        return $this->belongsTo(Monument::class);
     }
 }
