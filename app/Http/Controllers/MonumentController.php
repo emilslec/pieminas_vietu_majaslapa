@@ -54,7 +54,8 @@ class MonumentController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        return view('monuments.create', compact('types'));
     }
 
     /**
@@ -62,7 +63,17 @@ class MonumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->title == null || $request->description == null || $request->type == null) {
+            return redirect()->back();
+        }
+        //all clear - updating the post!
+        // $categoryy = Category::where('title', $request->category)->first();
+        $m = Monument::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type_id' => $request->type,
+        ]);
+        return redirect()->route('monuments.show', $m);
     }
 
     /**

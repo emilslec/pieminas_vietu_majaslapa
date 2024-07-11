@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Blog page</title>
+    <title>Obejekti</title>
 </head>
 
 <body>
@@ -30,6 +30,7 @@
         <button type="submit">Meklēt</button>
         <button type="submit" name="clear" value="1">Notīrīt izvēli</button>
     </form>
+    <h3><a href="create">Izveidot</a></h3>
     @foreach ($monuments as $monument)
     <h2><a href="{{ route('monuments.show', $monument->id) }}">{{ $monument->title }}</a></h2>
     <p> {{$monument->description}}</p>
