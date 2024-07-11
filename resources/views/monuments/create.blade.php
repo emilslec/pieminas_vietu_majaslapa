@@ -20,6 +20,18 @@
         </div>
 
         <div>
+            <label for="state">Pagasts:</label>
+            <input type="text" id="state" name="state" value="" required>
+        </div>
+        <div>
+            <label for="location">Atrašānās vietas piezīmes:</label>
+            <input type="text" id="location" name="location" value="" required>
+        </div>
+        <div>
+            <label for="people">Saistītās personas</label>
+            <input type="text" id="people" name="people" value="" required>
+        </div>
+        <div>
             <label for="description">Apraksts:</label>
             <textarea id="description" name="description" required cols="80" rows="20"></textarea>
         </div>

@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
-            $table->string('description', length: 255);
+            $table->string('state');
+            $table->string('location');
+            $table->string('people');
+            $table->string('description');
             $table->timestamps();
         });
     }

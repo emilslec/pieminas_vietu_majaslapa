@@ -13,11 +13,9 @@
         <h2>{{ $monument->title }}</h2>
         <p>{{ $monument->description }}</p>
         <h2>dalibnieki</h2>
-        @foreach ($monument->participants as $participant)
-        <p>{{$participant->person->name}} --
-            {{$participant->role->title}}
-        </p>
-        @endforeach
+        <h2>{{$monument->people}}</h2>
+
+
     </div>
 </body>
 

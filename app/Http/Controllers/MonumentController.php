@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Monument;
 use App\Models\Type;
-use App\Models\Participant;
-use App\Models\Person;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MonumentController extends Controller
 {
@@ -18,35 +15,37 @@ class MonumentController extends Controller
     {
 
         $types = Type::all();
-        $people = Person::all();
-        $monuments = Monument::all();
+        $monumentsQuery = Monument::query();
 
         if ($request->has('clear')) {
-            return redirect()->route('monuments.index', compact('monuments', 'types', 'people'));
+            $monuments = Monument::all();
+            return redirect()->route('monuments.index', compact('monuments', 'types'));
+        }
+
+        if ($request->filled('category')) {
+            $monumentsQuery = $monumentsQuery->where('type_id', $request->category);
         }
 
         if ($request->filled('person')) {
 
-
-            $people_ids = DB::table('people')
-                ->where('name', 'like', "%$request->person%")
-                ->get()->pluck('id');
-            $ids = Participant::all()->whereIn('person_id', $people_ids)->pluck('monument_id');
-            $monuments = $monuments->whereIn('id', $ids);
+            $monumentsQuery->where('people', 'like', "%{$request->person}%");
         }
-
-        if ($request->filled('category')) {
-            $monuments = $monuments->where('type_id', $request->category);
-        }
-
 
         if ($request->filled('title')) {
-            // Filter monuments where title contains the search term
-            $monuments = $monuments->filter(function ($monument) use ($request) {
-                return stripos($monument->title, $request->title) !== false;
-            });
+            $monumentsQuery->where('title', 'like', "%{$request->title}%");
         }
-        return view('monuments.index', compact('monuments', 'types', 'people'));
+
+        if ($request->filled('state')) {
+            $monumentsQuery->where('state', 'like', "%{$request->state}%");
+        }
+
+        if ($request->filled('location')) {
+            $monumentsQuery->where('location', 'like', "%{$request->location}%");
+        }
+
+        $monuments = $monumentsQuery->get();
+
+        return view('monuments.index', compact('monuments', 'types'));
     }
 
     /**S
@@ -63,16 +62,24 @@ class MonumentController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->title == null || $request->description == null || $request->type == null) {
+        if (
+            $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
+            || $request->people == null
+        ) {
             return redirect()->back();
         }
-        //all clear - updating the post!
-        // $categoryy = Category::where('title', $request->category)->first();
+
         $m = Monument::create([
             'title' => $request->title,
             'description' => $request->description,
             'type_id' => $request->type,
+            'state' => $request->state,
+            'location' => $request->location,
+            'people' => $request->people
         ]);
+
+
+
         return redirect()->route('monuments.show', $m);
     }
 
@@ -90,7 +97,9 @@ class MonumentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $monument = Monument::findOrFail($id);
+        $types = Type::all();
+        return view('monuments.edit', compact('monument', 'types'));
     }
 
     /**
@@ -98,7 +107,24 @@ class MonumentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (
+            $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
+            || $request->people == null
+        ) {
+            return redirect()->back();
+        }
+
+        $m = Monument::findOrFail($id);
+
+        $m->title = $request->title;
+        $m->description = $request->description;
+        $m->type_id = $request->type;
+        $m->state = $request->state;
+        $m->location = $request->location;
+        $m->people = $request->people;
+        $m->save();
+
+        return redirect()->route('monuments.show', $m);
     }
 
     /**

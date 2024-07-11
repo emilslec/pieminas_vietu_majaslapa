@@ -9,11 +9,8 @@ class Monument extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'type_id'];
-    public function participants()
-    {
-        return $this->hasMany(Participant::class);
-    }
+    protected $fillable = ['title', 'description', 'type_id', 'state', 'location', 'people'];
+
     public function oldImages()
     {
         return $this->hasMany(OldImages::class);
