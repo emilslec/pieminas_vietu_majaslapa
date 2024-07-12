@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Monument;
+use App\Models\NewImages;
 use App\Models\OldImages;
 
 class ImageController extends Controller
@@ -32,20 +33,29 @@ class ImageController extends Controller
         // Validate the request
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'type' => 'required',
         ], [
             'image.mimes' => 'Allowed image types: jpeg, png, jpg',
             'image.max' => 'Max image size is 1MB'
         ]);
 
 
-        $folder = "images/{$id}";
+        $folder = "images/{$id}/{$request->type}";
         $path = $request->file('image')->store($folder, 'public');
 
         // Save the image path to the database
-        OldImages::create([
-            'monument_id' => $id,
-            'path' => $path,
-        ]);
+        if ($request->type == 'historical') {
+            OldImages::create([
+                'monument_id' => $id,
+                'path' => $path,
+            ]);
+        } else {
+            NewImages::create([
+                'monument_id' => $id,
+                'path' => $path,
+            ]);
+        }
+
 
         return redirect()->back();
     }

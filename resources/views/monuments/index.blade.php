@@ -38,18 +38,22 @@
         <button type="submit">Meklēt</button>
         <button type="submit" name="clear" value="1">Notīrīt izvēli</button>
     </form>
+
     <h2><a href="{{ route('monuments.create') }}">Izveidot</a></h2>
     @foreach ($monuments as $monument)
-    <h2><a href="{{ route('monuments.show', $monument->id) }}">{{ $monument->title }}</a></h2>
-    <p> {{$monument->description}}</p>
-    <p>Veids - {{$monument->type->title}}</p>
-    <p>{{$monument->state}} - {{$monument->location}}</p>
-    <form method="GET" action="{{ route('monuments.edit', $monument->id)}}">
-        <button type="submit">update </button>
-    </form>
-
+    <div>
+        <h2><a href="{{ route('monuments.show', $monument->id) }}">{{ $monument->title }}</a></h2>
+        <p> {{$monument->description}}</p>
+        <p>Veids - {{$monument->type->title}}</p>
+        <p>{{$monument->state}} - {{$monument->location}}</p>
+        <form method="GET" action="{{ route('monuments.edit', $monument->id)}}">
+            <button type="submit">update </button>
+        </form>
+    </div>
+    @isset ($monument->oldImages[0])
+    <img width=200 alt="bilde" src="{{asset('storage/' . $monument->oldImages[0]->path)}}">
+    @endisset
     @endforeach
-
 </body>
 
 </html>

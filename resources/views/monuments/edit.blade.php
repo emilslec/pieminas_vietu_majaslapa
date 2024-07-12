@@ -48,7 +48,13 @@
         </div>
         <button type="submit">Post</button>
     </form>
+    <h2>vesture</h2>
     @foreach ($monument->OldImages as $image)
+
+    <img width=200 alt="bilde" src="{{asset('storage/' . $image->path)}}">
+    @endforeach
+    <h2>tagande</h2>
+    @foreach ($monument->NewImages as $image)
 
     <img width=200 alt="bilde" src="{{asset('storage/' . $image->path)}}">
 
@@ -57,6 +63,11 @@
         @csrf
         @method('POST')
         <input type="file" name="image"><br>
+        <label for="type">Attēla veids:</label>
+        <select id="type" name="type" value="historical">
+            <option value="historical">Vēsturisks</option>
+            <option value="recent">Aktuāls</option>
+        </select>
         <button type="submit">Pievienot bildi</button>
     </form>
 </body>

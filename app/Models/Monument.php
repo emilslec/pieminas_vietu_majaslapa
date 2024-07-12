@@ -15,6 +15,10 @@ class Monument extends Model
     {
         return $this->hasMany(OldImages::class);
     }
+    public function newImages()
+    {
+        return $this->hasMany(NewImages::class);
+    }
     public function type()
     {
         return $this->belongsTo(Type::class);
