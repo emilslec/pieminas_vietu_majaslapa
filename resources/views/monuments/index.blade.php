@@ -46,9 +46,6 @@
         <p> {{$monument->description}}</p>
         <p>Veids - {{$monument->type->title}}</p>
         <p>{{$monument->state}} - {{$monument->location}}</p>
-        <form method="GET" action="{{ route('monuments.edit', $monument->id)}}">
-            <button type="submit">update </button>
-        </form>
     </div>
     @isset ($monument->oldImages[0])
     <img width=200 alt="bilde" src="{{asset('storage/' . $monument->oldImages[0]->path)}}">

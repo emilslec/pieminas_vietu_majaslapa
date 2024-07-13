@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('location');
             $table->string('people');
-            $table->string('description');
+            $table->longText('description');
             $table->timestamps();
         });
     }

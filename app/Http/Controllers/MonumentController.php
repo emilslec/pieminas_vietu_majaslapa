@@ -92,6 +92,20 @@ class MonumentController extends Controller
         return view('monuments.show', compact('monument'));
     }
 
+    public function showOldImages($id)
+    {
+        $monument = Monument::findOrFail($id);
+
+        return view('monuments.old-images', compact('monument'));
+    }
+
+    public function showNewImages($id)
+    {
+        $monument = Monument::findOrFail($id);
+
+        return view('monuments.new-images', compact('monument'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
