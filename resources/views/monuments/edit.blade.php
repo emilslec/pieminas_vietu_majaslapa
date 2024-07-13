@@ -50,14 +50,23 @@
     </form>
     <h2>vesture</h2>
     @foreach ($monument->OldImages as $image)
-
     <img width=200 alt="bilde" src="{{asset('storage/' . $image->path)}}">
+    <form method="POST" action="{{ route('images.destroyOld', ['image_id' => $image->id])}}">
+        @csrf
+        @method('POST')
+        <button type="submit">Dzeēst</button>
+    </form>
     @endforeach
+
     <h2>tagande</h2>
     @foreach ($monument->NewImages as $image)
 
     <img width=200 alt="bilde" src="{{asset('storage/' . $image->path)}}">
-
+    <form method="POST" action="{{ route('images.destroyNew', ['image_id' => $image->id])}}">
+        @csrf
+        @method('POST')
+        <button type="submit">Dzeēst</button>
+    </form>
     @endforeach
     <form action="{{ route('images.store', ['monument_id' => $monument->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf

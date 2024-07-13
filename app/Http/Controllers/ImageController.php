@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Monument;
 use App\Models\NewImages;
 use App\Models\OldImages;
+use Illuminate\Support\Facades\Storage;
+
 
 class ImageController extends Controller
 {
@@ -87,8 +88,18 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyOld(string $id)
     {
-        //
+        $i = OldImages::findOrFail($id);
+        Storage::delete('public/' . $i->path);
+        $i->delete();
+        return redirect()->back();
+    }
+    public function destroyNew(string $id)
+    {
+        $i = NewImages::findOrFail($id);
+        Storage::delete('public/' . $i->path);
+        $i->delete();
+        return redirect()->back();
     }
 }
