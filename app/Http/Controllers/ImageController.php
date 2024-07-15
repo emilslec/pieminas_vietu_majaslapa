@@ -29,33 +29,51 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, string $id)
+    public function storeOld(Request $request, string $id)
     {
         // Validate the request
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
-            'type' => 'required',
         ], [
             'image.mimes' => 'Allowed image types: jpeg, png, jpg',
             'image.max' => 'Max image size is 1MB'
         ]);
 
 
-        $folder = "images/{$id}/{$request->type}";
+        $folder = "images/{$id}/historical";
         $path = $request->file('image')->store($folder, 'public');
 
         // Save the image path to the database
-        if ($request->type == 'historical') {
-            OldImages::create([
-                'monument_id' => $id,
-                'path' => $path,
-            ]);
-        } else {
-            NewImages::create([
-                'monument_id' => $id,
-                'path' => $path,
-            ]);
-        }
+        OldImages::create([
+            'monument_id' => $id,
+            'path' => $path,
+        ]);
+
+
+
+        return redirect()->back();
+    }
+    public function storeNew(Request $request, string $id)
+    {
+        // Validate the request
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+        ], [
+            'image.mimes' => 'Allowed image types: jpeg, png, jpg',
+            'image.max' => 'Max image size is 1MB'
+        ]);
+
+
+        $folder = "images/{$id}/recent";
+        $path = $request->file('image')->store($folder, 'public');
+
+        // Save the image path to the database
+
+        NewImages::create([
+            'monument_id' => $id,
+            'path' => $path,
+        ]);
+
 
 
         return redirect()->back();

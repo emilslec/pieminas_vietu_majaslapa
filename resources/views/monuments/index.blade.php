@@ -3,54 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Obejekti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
+
+    <title>Objekti</title>
 </head>
 
-<body>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <h1>Vietas</h1>
-    <form method="GET" action="{{ route('monuments.index') }}">
-        <div>
-            <label for="title">Nosaukums</label>
-            <input type="text" id="title" name="title" value="{{request('title');}}">
-        </div>
-        <div>
-            <label for="state">Pagasts</label>
-            <input type="text" id="state" name="state" value="{{request('state');}}">
-        </div>
-        <div>
-            <label for="location">Vieta</label>
-            <input type="text" id="location" name="location" value="{{request('location');}}">
-        </div>
-        <div>
-            <label for="person">Cilvēks </label>
-            <input type="text" id="person" name="person" value="{{request('person');}}">// vajag pēc vairākiem?
-        </div>
-        <div>
-            <label for="category" value="{{request('category');}}">Tips</label>
-            <select id="category" name="category">
-                <option value="">Izvēlieties tipu...</option>
-                @foreach ($types as $type)
-                <option value="{{$type->id}}">{{$type->title}}</option>
-                @endforeach
-            </select>
-        </div>
-        <button type="submit">Meklēt</button>
-        <button type="submit" name="clear" value="1">Notīrīt izvēli</button>
-    </form>
+    <x-navbar />
 
-    <h2><a href="{{ route('monuments.create') }}">Izveidot</a></h2>
-    @foreach ($monuments as $monument)
-    <div>
-        <h2><a href="{{ route('monuments.show', $monument->id) }}">{{ $monument->title }}</a></h2>
-        <p> {{$monument->description}}</p>
-        <p>Veids - {{$monument->type->title}}</p>
-        <p>{{$monument->state}} - {{$monument->location}}</p>
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold my-6">Vietas</h1>
+        <form method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 rounded-lg shadow-md mb-6">
+            @csrf
+            @method('GET')
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="title" class="block font-semibold mb-1">Nosaukums</label>
+                    <input type="text" id="title" name="title" value="{{ request('title') }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label for="state" class="block font-semibold mb-1">Pagasts</label>
+                    <input type="text" id="state" name="state" value="{{ request('state') }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label for="location" class="block font-semibold mb-1">Vieta</label>
+                    <input type="text" id="location" name="location" value="{{ request('location') }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label for="person" class="block font-semibold mb-1">Cilvēks</label>
+                    <input type="text" id="person" name="person" value="{{ request('person') }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label for="category" class="block font-semibold mb-1">Tips</label>
+                    <select name="category" id="category" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <option value="">Izvēlieties tipu...</option>
+                        @foreach ($types as $type)
+                        <option value="{{ $type->id }}" @if ($type->id == request()->query('category')) selected @endif>{{ $type->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="flex space-x-4">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Meklēt</button>
+                <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
+            </div>
+        </form>
+
+        @foreach ($monuments as $monument)
+        <div class="bg-white p-5 rounded-lg shadow-md mb-6 flex items-start">
+            @isset ($monument->oldImages[0])
+            <img src="{{ asset('storage/' . $monument->oldImages[0]->path) }}" alt="bilde" class="object-cover h-32 w-32 shadow-md mr-6">
+            @else
+            <img src="{{ asset('storage/images/default.png') }}" alt="Monument Image" class="object-cover h-32 w-32 shadow-md mr-6">
+            @endif
+            <div>
+                <h2 class="text-2xl font-semibold mb-2">
+                    <a href="{{ route('monuments.show', $monument->id) }}" class="text-blue-500 hover:underline">{{ $monument->title }}</a>
+                </h2>
+                <div class="flex flex-row items-center space-x-2">
+                    <label class="font-semibold">Tips:</label>
+                    <span>{{ $monument->type->title }}</span>
+                </div>
+                <div class="flex flex-row items-center space-x-2">
+                    <label class="font-semibold">Pagasts:</label>
+                    <span>{{ $monument->state }}</span>
+                </div>
+                <div class="flex flex-row items-center space-x-2">
+                    <label class="font-semibold">Atrašanās vieta:</label>
+                    <span>{{ $monument->location }}</span>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        <div class="mt-4">
+            {{ $monuments->links() }}
+        </div>
     </div>
-    @isset ($monument->oldImages[0])
-    <img width=200 alt="bilde" src="{{asset('storage/' . $monument->oldImages[0]->path)}}">
-    @endisset
-    @endforeach
+
 </body>
 
 </html>

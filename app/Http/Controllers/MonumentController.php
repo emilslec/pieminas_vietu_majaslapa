@@ -43,9 +43,9 @@ class MonumentController extends Controller
             $monumentsQuery->where('location', 'like', "%{$request->location}%");
         }
 
-        $monuments = $monumentsQuery->get();
-
-        return view('monuments.index', compact('monuments', 'types'));
+        $monuments = $monumentsQuery->paginate(2)->withQueryString();
+        $params = $request->monumentsQuery;
+        return view('monuments.index', compact('monuments', 'types', 'params'));
     }
 
     /**S
@@ -96,14 +96,14 @@ class MonumentController extends Controller
     {
         $monument = Monument::findOrFail($id);
 
-        return view('monuments.old-images', compact('monument'));
+        return view('images.old-images', compact('monument'));
     }
 
     public function showNewImages($id)
     {
         $monument = Monument::findOrFail($id);
 
-        return view('monuments.new-images', compact('monument'));
+        return view('images.new-images', compact('monument'));
     }
 
     /**
@@ -114,6 +114,18 @@ class MonumentController extends Controller
         $monument = Monument::findOrFail($id);
         $types = Type::all();
         return view('monuments.edit', compact('monument', 'types'));
+    }
+
+    public function editOldImages(string $id)
+    {
+        $monument = Monument::findOrFail($id);
+        return view('images.edit-old-images', compact('monument'));
+    }
+
+    public function editNewImages(string $id)
+    {
+        $monument = Monument::findOrFail($id);
+        return view('images.edit-new-images', compact('monument'));
     }
 
     /**

@@ -1,11 +1,13 @@
 <nav class="bg-white shadow mb-8">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mx-10 py-4">
-            <div class="text-3xl font-bold">Mājaslapa</div>
+            <div class="text-3xl font-bold">
+                <a href="{{ route('monuments.index') }}">Mājaslapa</a>
+            </div>
             <div class="hidden md:flex items-center space-x-10">
                 <!-- Increased spacing between items -->
                 <a href="{{ route('monuments.create') }}" class="text-gray-800 hover:text-blue-600">Pievienot objektu</a>
-                <a href="#" class="text-gray-800 hover:text-blue-600">Pievienot objekta veidu</a>
+                <a href="{{ route('types.index') }}" class="text-gray-800 hover:text-blue-600">Pārvaldīt objektu veidus</a>
                 <a href="#" class="text-gray-800 hover:text-blue-600">Autorizēties</a>
             </div>
             <div class="md:hidden">

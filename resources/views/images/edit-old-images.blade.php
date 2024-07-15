@@ -1,4 +1,3 @@
-<!-- Example usage in a Blade view -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +11,14 @@
 
 <body class="bg-gray-100 text-gray-800 font-sans">
 
+    <!-- Include the small navbar component -->
     <x-navbar />
+    <!-- resources/views/components/small-navbar.blade.php -->
 
-    <x-smallnavbar :id="$monument->id" />
+    <x-smallnavbar type="edit" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-images :images="$monument->newImages" name="Jaunie" />
+    <x-edit-images :id="$monument->id" type="Old" :images="$monument->oldImages" title="Vēsturiskie" />
 
 </body>
 

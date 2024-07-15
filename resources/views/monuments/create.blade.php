@@ -5,52 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Monument</title>
+    @vite('resources/css/app.css') <!-- Ensure you have the Tailwind CSS included -->
 </head>
 
-<body>
-    <h1>Izveidot</h1>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <form action="{{  route('monuments.store') }}" method="POST">
-        @csrf
-        @method('POST')
+    <x-navbar />
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold my-6 text-center">Izveidot</h1>
 
-        <div>
-            <label for="title">Nosaukums:</label>
-            <input type="text" id="title" name="title" value="" required>
-        </div>
+        <form action="{{ route('monuments.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+            @csrf
+            @method('POST')
 
-        <div>
-            <label for="state">Pagasts:</label>
-            <input type="text" id="state" name="state" value="" required>
-        </div>
-        <div>
-            <label for="location">Atrašānās vietas piezīmes:</label>
-            <input type="text" id="location" name="location" value="" required>
-        </div>
-        <div>
-            <label for="people">Saistītās personas</label>
-            <input type="text" id="people" name="people" value="" required>
-        </div>
-        <div>
-            <label for="description">Apraksts:</label>
-            <textarea id="description" name="description" required cols="80" rows="20"></textarea>
-        </div>
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Nosaukums:</label>
+                <input type="text" id="title" name="title" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
+            </div>
 
-        <div>
-            <label for="type">Veida nosaukums:</label>
-            <select id="type" name="type">
-                @foreach ($types as $type)
-                <option value="{{ $type->id }}">
-                    {{ $type->title }}
-                </option>
-                @endforeach
-            </select>
-        </div>
+            <div class="mb-4">
+                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pagasts:</label>
+                <input type="text" id="state" name="state" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
+            </div>
 
+            <div class="mb-4">
+                <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Atrašānās vietas piezīmes:</label>
+                <input type="text" id="location" name="location" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
+            </div>
 
+            <div class="mb-4">
+                <label for="people" class="block text-sm font-medium text-gray-700 mb-1">Saistītās personas:</label>
+                <input type="text" id="people" name="people" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
+            </div>
 
-        <button type="submit">Post</button>
-    </form>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Apraksts:</label>
+                <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Veida nosaukums:</label>
+                <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
+                    @foreach ($types as $type)
+                    <option value="{{ $type->id }}">
+                        {{ $type->title }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Post</button>
+            </div>
+        </form>
+    </div>
+
 </body>
 
 </html>

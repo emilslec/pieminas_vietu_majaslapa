@@ -16,7 +16,7 @@
     <x-navbar />
     <!-- resources/views/components/small-navbar.blade.php -->
 
-    <x-smallnavbar :id="$monument->id" />
+    <x-smallnavbar type="show" :id="$monument->id" />
 
     <!-- Main Content -->
     <div class="container mx-auto p-4">
