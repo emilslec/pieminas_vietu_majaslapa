@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-
     <title>Objekti</title>
+    @vite('resources/css/app.css')
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -14,7 +13,7 @@
     <x-navbar />
 
     <div class="container mx-auto px-4">
-        <h1 class="text-3xl font-bold my-6">Vietas</h1>
+        <!-- <h1 class="text-3xl font-bold my-6">Vietas</h1> -->
         <form method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 rounded-lg shadow-md mb-6">
             @csrf
             @method('GET')
@@ -46,25 +45,30 @@
                 </div>
             </div>
             <div class="flex space-x-4">
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Meklēt</button>
+                <button type="submit" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700">Meklēt</button>
                 <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
             </div>
         </form>
 
         @foreach ($monuments as $monument)
-        <div class="bg-white p-5 rounded-lg shadow-md mb-6 flex items-start">
+        <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex items-start">
             @isset ($monument->oldImages[0])
-            <img src="{{ asset('storage/' . $monument->oldImages[0]->path) }}" alt="bilde" class="object-cover h-32 w-32 shadow-md mr-6">
+            <img src="{{ asset('storage/' . $monument->oldImages[0]->path) }}" alt="bilde" class="object-cover h-40 w-40 shadow-md mr-6">
             @else
-            <img src="{{ asset('storage/images/default.png') }}" alt="Monument Image" class="object-cover h-32 w-32 shadow-md mr-6">
+            <img src="{{ asset('storage/images/default.png') }}" alt="Monument Image" class="object-cover h-40 w-40 shadow-md mr-6">
             @endif
             <div>
                 <h2 class="text-2xl font-semibold mb-2">
-                    <a href="{{ route('monuments.show', $monument->id) }}" class="text-blue-500 hover:underline">{{ $monument->title }}</a>
+                    <a href="{{ route('monuments.show', $monument->id) }}" class="text-orange-500 hover:underline">{{ $monument->title }}</a>
                 </h2>
-                <div class="flex flex-row items-center space-x-2">
-                    <label class="font-semibold">Tips:</label>
-                    <span>{{ $monument->type->title }}</span>
+                <div class="flex flex-row items-center space-x-56">
+                    <div>
+                        <label class="font-semibold">Tips:</label>
+                        <span>{{ $monument->type->title }}</span>
+                    </div>
+                    <div><label class="font-semibold">Iesaisītās personas:</label>
+                        <span>{{ $monument->people }}</span>
+                    </div>
                 </div>
                 <div class="flex flex-row items-center space-x-2">
                     <label class="font-semibold">Pagasts:</label>
@@ -77,7 +81,7 @@
             </div>
         </div>
         @endforeach
-        <div class="mt-4">
+        <div class="my-6">
             {{ $monuments->links() }}
         </div>
     </div>

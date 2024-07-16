@@ -33,7 +33,7 @@ class ImageController extends Controller
     {
         // Validate the request
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:8096',
         ], [
             'image.mimes' => 'Allowed image types: jpeg, png, jpg',
             'image.max' => 'Max image size is 1MB'
@@ -57,7 +57,7 @@ class ImageController extends Controller
     {
         // Validate the request
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:8096',
         ], [
             'image.mimes' => 'Allowed image types: jpeg, png, jpg',
             'image.max' => 'Max image size is 1MB'

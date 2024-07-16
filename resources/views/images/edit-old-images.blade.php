@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>{{$monument->title}}</title>
 </head>
 
@@ -19,7 +19,7 @@
 
     <!-- Main Content -->
     <x-edit-images :id="$monument->id" type="Old" :images="$monument->oldImages" title="Vēsturiskie" />
-
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

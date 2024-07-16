@@ -6,6 +6,8 @@ use App\Models\Monument;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class MonumentController extends Controller
 {
     /**
@@ -43,7 +45,7 @@ class MonumentController extends Controller
             $monumentsQuery->where('location', 'like', "%{$request->location}%");
         }
 
-        $monuments = $monumentsQuery->paginate(2)->withQueryString();
+        $monuments = $monumentsQuery->paginate(3)->withQueryString();
         $params = $request->monumentsQuery;
         return view('monuments.index', compact('monuments', 'types', 'params'));
     }
@@ -158,6 +160,20 @@ class MonumentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $m = Monument::findOrFail($id);
+        foreach ($m->oldImages as $image) {
+            Storage::delete('public/' . $image->path);
+
+            $image->delete();
+        }
+
+        foreach ($m->newImages as $image) {
+            Storage::delete('public/' . $image->path);
+
+            $image->delete();
+        }
+
+        $m->delete();
+        return redirect()->route('monuments.index');
     }
 }
