@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('monuments', function (Blueprint $table) {
+        Schema::create('descriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->foreignId('type_id')->constrained()->onDelete('cascade');
-            $table->string('state');
-            $table->string('location');
-            $table->string('people');
+            $table->foreignId('monument_id')->constrained()->onDelete('cascade');
+            $table->longText('content');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('monuments');
+        Schema::dropIfExists('descriptions');
     }
 };

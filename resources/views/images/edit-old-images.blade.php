@@ -18,7 +18,7 @@
     <x-smallnavbar type="edit" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-edit-images :id="$monument->id" type="Old" :images="$monument->oldImages" title="Vēsturiskie" />
+    <x-edit-images :id="$monument->id" type="Old" :images="$monument->oldImages" title="Vēsturiskie attēli" />
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

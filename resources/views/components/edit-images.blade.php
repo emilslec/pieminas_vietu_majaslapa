@@ -1,12 +1,16 @@
+<div id="fullscreen-container" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
+    <img id="fullscreen-image" class="max-w-full max-h-full">
+    <button id="close-fullscreen" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded">Aizvērt</button>
+</div>
 <div class="container mx-auto px-4">
     <h2 class="text-2xl font-semibold my-6 text-center">{{$title}}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         @foreach ($images as $image)
         <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-between">
             <div class="w-3/4 h-48 flex justify-center items-center">
-                <img alt="bilde" src="{{ asset('storage/' . $image->path) }}" class="object-cover h-full w-full shadow">
+                <img alt="bilde" src="{{ asset('storage/' . $image->path) }}" class="object-cover h-full w-full shadow" onclick="openFullscreen('{{ asset('storage/' . $image->path) }}')">
             </div>
-            <form method="POST" action="{{ route('images.destroyOld', ['image_id' => $image->id]) }}" class="w-full flex justify-center items-center mt-4">
+            <form method="POST" action="{{ route('images.destroy' . $type, ['image_id' => $image->id]) }}" class="w-full flex justify-center items-center mt-4">
                 @csrf
                 @method('POST')
                 <button type="submit" class="bg-amber-400 text-white py-2 px-3 rounded center w-20 hover:bg-red-700">Dzēst</button>

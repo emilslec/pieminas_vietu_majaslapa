@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Description;
 use App\Models\Monument;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class MonumentController extends Controller
             $monumentsQuery->where('location', 'like', "%{$request->location}%");
         }
 
-        $monuments = $monumentsQuery->paginate(3)->withQueryString();
+        $monuments = $monumentsQuery->paginate(4)->withQueryString();
         $params = $request->monumentsQuery;
         return view('monuments.index', compact('monuments', 'types', 'params'));
     }
@@ -73,13 +74,16 @@ class MonumentController extends Controller
 
         $m = Monument::create([
             'title' => $request->title,
-            'description' => $request->description,
             'type_id' => $request->type,
             'state' => $request->state,
             'location' => $request->location,
             'people' => $request->people
         ]);
 
+        $d = Description::create([
+            'content' => $request->description,
+            'monument_id' => $m->id,
+        ]);
 
 
         return redirect()->route('monuments.show', $m);
@@ -145,12 +149,16 @@ class MonumentController extends Controller
         $m = Monument::findOrFail($id);
 
         $m->title = $request->title;
-        $m->description = $request->description;
         $m->type_id = $request->type;
         $m->state = $request->state;
         $m->location = $request->location;
         $m->people = $request->people;
         $m->save();
+
+        $d = $m->description;
+
+        $d->content = $request->description;
+        $d->save();
 
         return redirect()->route('monuments.show', $m);
     }
@@ -173,6 +181,7 @@ class MonumentController extends Controller
             $image->delete();
         }
 
+        $m->description->delete();
         $m->delete();
         return redirect()->route('monuments.index');
     }

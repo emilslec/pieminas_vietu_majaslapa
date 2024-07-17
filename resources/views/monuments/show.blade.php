@@ -51,7 +51,7 @@
                 </div>
                 <div>
                     <label class="font-semibold">Apraksts:</label>
-                    <p class="text-sm mb-4">{{ $monument->description }}</p> <!-- Changed text-lg to text-sm -->
+                    <p class="text-sm mb-4">{{ $monument->description->content }}</p> <!-- Changed text-lg to text-sm -->
                 </div>
             </div>
         </div>

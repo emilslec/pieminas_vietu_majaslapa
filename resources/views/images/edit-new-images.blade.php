@@ -18,7 +18,7 @@
     <x-smallnavbar type="edit" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-edit-images :id="$monument->id" type="New" :images="$monument->newImages" title="Jauns" />
+    <x-edit-images :id="$monument->id" type="New" :images="$monument->newImages" title="Aktuālie attēli" />
 
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

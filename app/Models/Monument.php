@@ -9,7 +9,7 @@ class Monument extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'type_id', 'state', 'location', 'people'];
+    protected $fillable = ['title', 'type_id', 'state', 'location', 'people'];
 
     public function oldImages()
     {
@@ -22,5 +22,9 @@ class Monument extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+    public function description()
+    {
+        return $this->hasOne(Description::class);
     }
 }

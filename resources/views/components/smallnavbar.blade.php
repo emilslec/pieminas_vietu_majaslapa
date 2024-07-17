@@ -3,24 +3,24 @@
         <div class="flex justify-between items-center  text-xl">
             <div>
                 <a href="{{ route('monuments.' . $type, $id) }}" class=" hover:text-blue-600">Informācija</a>
-                <a href="{{ route('monuments.' . $type .  '.oldImages', $id) }}" class="ml-4  hover:text-blue-600">Vecās bildes</a>
-                <a href=" {{ route('monuments.' . $type .  '.newImages', $id) }}" class="ml-4  hover:text-blue-600">Jaunās bildes</a>
+                <a href="{{ route('monuments.' . $type .  '.oldImages', $id) }}" class="ml-4  hover:text-blue-600">Vēsturiskie attēli</a>
+                <a href=" {{ route('monuments.' . $type .  '.newImages', $id) }}" class="ml-4  hover:text-blue-600">Aktuālie attēli</a>
             </div>
             @if ($type == "show")
-            <div class="hidden md:flex items-center space-x-4">
+            <div class="md:flex items-center space-x-4">
                 <form action="{{ route('monuments.edit', $id)}}" method="GET">
                     <button type="submit" class="bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-700">Rediģēt objektu</button>
                 </form>
             </div>
             @else
-            <div class="hidden md:flex items-center space-x-4">
-                <form action="{{ route('monuments.destroy', $id)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" onclick="return confirm('Vai Jūs patiešām vēlaties dzēst objektu?')" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-amber-700">Dzēst objektu</button>
-                </form>
-            </div>
-            @endif
+
+            <form action="{{ route('monuments.destroy', $id)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" onclick="return confirm('Vai Jūs patiešām vēlaties dzēst objektu?')" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-amber-700">Dzēst objektu</button>
+            </form>
         </div>
+        @endif
+    </div>
     </div>
 </nav>

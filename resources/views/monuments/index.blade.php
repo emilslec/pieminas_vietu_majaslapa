@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objekti</title>
+    <title>Pieminekļi</title>
     @vite('resources/css/app.css')
+
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -13,8 +14,9 @@
     <x-navbar />
 
     <div class="container mx-auto px-4">
-        <!-- <h1 class="text-3xl font-bold my-6">Vietas</h1> -->
-        <form method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <button id="toggle-form" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mb-6">Slēpt meklēšanu</button>
+
+        <form id="search-form" method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 block rounded-lg shadow-md mb-6">
             @csrf
             @method('GET')
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
@@ -31,7 +33,7 @@
                     <input type="text" id="location" name="location" value="{{ request('location') }}" class="w-full p-2 border border-gray-300 rounded-lg">
                 </div>
                 <div>
-                    <label for="person" class="block font-semibold mb-1">Cilvēks</label>
+                    <label for="person" class="block font-semibold mb-1">Iesaiastītās personas</label>
                     <input type="text" id="person" name="person" value="{{ request('person') }}" class="w-full p-2 border border-gray-300 rounded-lg">
                 </div>
                 <div>
@@ -49,7 +51,9 @@
                 <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
             </div>
         </form>
-
+        @if($monuments->isEmpty())
+        <h3 class="text-xl">Neviens objekts netika atrasts!</h3>
+        @endif
         @foreach ($monuments as $monument)
         <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex items-start">
             @isset ($monument->oldImages[0])
@@ -66,7 +70,8 @@
                         <label class="font-semibold">Tips:</label>
                         <span>{{ $monument->type->title }}</span>
                     </div>
-                    <div><label class="font-semibold">Iesaisītās personas:</label>
+                    <div>
+                        <label class="font-semibold">Iesaistītās personas:</label>
                         <span>{{ $monument->people }}</span>
                     </div>
                 </div>
@@ -85,7 +90,7 @@
             {{ $monuments->links() }}
         </div>
     </div>
-
+    <script src="{{ asset('js/index.js') }}"></script>
 </body>
 
 </html>

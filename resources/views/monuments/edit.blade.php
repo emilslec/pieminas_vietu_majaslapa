@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Monument</title>
+    <title>Rediģēt pieminekli</title>
     @vite('resources/css/app.css') <!-- Ensure you have the Tailwind CSS included -->
 </head>
 
@@ -42,7 +42,7 @@
 
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Apraksts:</label>
-                <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->description}}</textarea>
+                <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->description->content}}</textarea>
             </div>
 
             <div class="mb-4">
