@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Models\NewImages;
 use App\Models\OldImages;
@@ -53,6 +54,7 @@ class ImageController extends Controller
 
         return redirect()->back();
     }
+
     public function storeNew(Request $request, string $id)
     {
         // Validate the request
@@ -70,6 +72,32 @@ class ImageController extends Controller
         // Save the image path to the database
 
         NewImages::create([
+            'monument_id' => $id,
+            'path' => $path,
+        ]);
+
+
+
+        return redirect()->back();
+    }
+
+    public function storeDocument(Request $request, string $id)
+    {
+        // Validate the request
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:8096',
+        ], [
+            'image.mimes' => 'Allowed image types: jpeg, png, jpg',
+            'image.max' => 'Max image size is 1MB'
+        ]);
+
+
+        $folder = "images/{$id}/documents";
+        $path = $request->file('image')->store($folder, 'public');
+
+        // Save the image path to the database
+
+        Document::create([
             'monument_id' => $id,
             'path' => $path,
         ]);
@@ -118,6 +146,13 @@ class ImageController extends Controller
         $i = NewImages::findOrFail($id);
         Storage::delete('public/' . $i->path);
         $i->delete();
+        return redirect()->back();
+    }
+    public function destroyDocument(string $id)
+    {
+        $d = Document::findOrFail($id);
+        Storage::delete('public/' . $d->path);
+        $d->delete();
         return redirect()->back();
     }
 }

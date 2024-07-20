@@ -38,11 +38,15 @@
                 <h2 class="text-2xl font-semibold mb-2">{{ $monument->title }}</h2>
 
                 <div class="flex flex-row items-center space-x-2">
+                    <label class="font-semibold">Numurs:</label>
+                    <span>{{ $monument->id }}</span>
+                </div>
+                <div class="flex flex-row items-center space-x-2">
                     <label class="font-semibold">Tips:</label>
                     <span>{{ $monument->type->title }}</span>
                 </div>
                 <div class="flex flex-row items-center space-x-2">
-                    <label class="font-semibold">Pagasts:</label>
+                    <label class="font-semibold">Pilsēta vai pagasts:</label>
                     <span>{{ $monument->state }}</span>
                 </div>
                 <div class="flex flex-row items-center space-x-2">
@@ -50,8 +54,12 @@
                     <span>{{ $monument->location }}</span>
                 </div>
                 <div>
-                    <label class="font-semibold">Apraksts:</label>
+                    <label class="font-semibold">Notikuma apraksts:</label>
                     <p class="text-sm mb-4">{{ $monument->description->content }}</p> <!-- Changed text-lg to text-sm -->
+                </div>
+                <div>
+                    <label class="font-semibold">Piemiņas vietas apraksts:</label>
+                    <p class="text-sm mb-4">{{ $monument->placeDescription->content }}</p> <!-- Changed text-lg to text-sm -->
                 </div>
             </div>
         </div>

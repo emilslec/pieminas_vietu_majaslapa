@@ -24,7 +24,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pagasts:</label>
+                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pilsēta vai pagasts:</label>
                 <input type="text" id="state" name="state" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
@@ -39,8 +39,13 @@
             </div>
 
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Apraksts:</label>
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Notikuma apraksts:</label>
                 <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="placeDescription" class="block text-sm font-medium text-gray-700 mb-1">Piemiņas vietas apraksts:</label>
+                <textarea id="placeDescription" name="placeDescription" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
             </div>
 
             <div class="mb-4">

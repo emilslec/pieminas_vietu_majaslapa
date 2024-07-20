@@ -19,6 +19,10 @@ class Monument extends Model
     {
         return $this->hasMany(NewImages::class);
     }
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
     public function type()
     {
         return $this->belongsTo(Type::class);
@@ -26,5 +30,9 @@ class Monument extends Model
     public function description()
     {
         return $this->hasOne(Description::class);
+    }
+    public function placeDescription()
+    {
+        return $this->hasOne(PlaceDescription::class);
     }
 }

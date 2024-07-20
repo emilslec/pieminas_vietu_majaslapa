@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Description;
 use App\Models\Monument;
+use App\Models\PlaceDescription;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -25,12 +26,15 @@ class MonumentController extends Controller
             return redirect()->route('monuments.index', compact('monuments', 'types'));
         }
 
+        if ($request->filled('number')) {
+            $monumentsQuery = $monumentsQuery->where('id', $request->number);
+        }
+
         if ($request->filled('category')) {
             $monumentsQuery = $monumentsQuery->where('type_id', $request->category);
         }
 
         if ($request->filled('person')) {
-
             $monumentsQuery->where('people', 'like', "%{$request->person}%");
         }
 
@@ -67,7 +71,7 @@ class MonumentController extends Controller
     {
         if (
             $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
-            || $request->people == null
+            || $request->people == null || $request->placeDescription == null
         ) {
             return redirect()->back();
         }
@@ -81,6 +85,11 @@ class MonumentController extends Controller
         ]);
 
         $d = Description::create([
+            'content' => $request->description,
+            'monument_id' => $m->id,
+        ]);
+
+        $d2 = PlaceDescription::create([
             'content' => $request->description,
             'monument_id' => $m->id,
         ]);
@@ -112,6 +121,13 @@ class MonumentController extends Controller
         return view('images.new-images', compact('monument'));
     }
 
+    public function showDocuments($id)
+    {
+        $monument = Monument::findOrFail($id);
+
+        return view('images.documents', compact('monument'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -134,6 +150,12 @@ class MonumentController extends Controller
         return view('images.edit-new-images', compact('monument'));
     }
 
+    public function editDocuments(string $id)
+    {
+        $monument = Monument::findOrFail($id);
+        return view('images.edit-documents', compact('monument'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -141,7 +163,7 @@ class MonumentController extends Controller
     {
         if (
             $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
-            || $request->people == null
+            || $request->people == null || $request->placeDescription == null
         ) {
             return redirect()->back();
         }
@@ -159,6 +181,11 @@ class MonumentController extends Controller
 
         $d->content = $request->description;
         $d->save();
+
+        $d2 = $m->placeDescription;
+
+        $d2->content = $request->placeDescription;
+        $d2->save();
 
         return redirect()->route('monuments.show', $m);
     }

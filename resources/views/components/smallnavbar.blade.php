@@ -5,6 +5,7 @@
                 <a href="{{ route('monuments.' . $type, $id) }}" class=" hover:text-blue-600">Informācija</a>
                 <a href="{{ route('monuments.' . $type .  '.oldImages', $id) }}" class="ml-4  hover:text-blue-600">Vēsturiskie attēli</a>
                 <a href=" {{ route('monuments.' . $type .  '.newImages', $id) }}" class="ml-4  hover:text-blue-600">Aktuālie attēli</a>
+                <a href=" {{ route('monuments.' . $type .  '.documents', $id) }}" class="ml-4  hover:text-blue-600">Citi dokumenti</a>
             </div>
             @if ($type == "show")
             <div class="md:flex items-center space-x-4">
@@ -13,11 +14,11 @@
                 </form>
             </div>
             @else
-
+            <a href=" {{ route('monuments.show', $id) }}" class="ml-4  hover:text-blue-600">Atpakaļ uz objektu</a>
             <form action="{{ route('monuments.destroy', $id)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" onclick="return confirm('Vai Jūs patiešām vēlaties dzēst objektu?')" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-amber-700">Dzēst objektu</button>
+                <button type="submit" onclick="return confirm('Vai Jūs patiešām vēlaties dzēst objektu?')" class="bg-amber-500 text-white py-2 px-4 rounded hover:bg-amber-700">Dzēst objektu</button>
             </form>
         </div>
         @endif

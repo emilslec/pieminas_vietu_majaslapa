@@ -14,7 +14,6 @@
 
     <x-smallnavbar type="edit" :id="$monument->id" />
     <div class="container mx-auto px-4">
-        <h1 class="text-3xl font-bold my-6 text-center">Atsvaidzināt</h1>
 
         <form action="{{ route('monuments.update', $monument->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-6">
             @csrf
@@ -26,12 +25,12 @@
             </div>
 
             <div class="mb-4">
-                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pagasts:</label>
+                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pilsēta vai pagasts:</label>
                 <input type="text" id="state" name="state" value="{{$monument->state}}" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
             <div class="mb-4">
-                <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Atrašānās vietas piezīmes:</label>
+                <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Atrašānās vieta:</label>
                 <input type="text" id="location" name="location" value="{{$monument->location}}" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
@@ -41,12 +40,17 @@
             </div>
 
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Apraksts:</label>
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Notikuma apraksts:</label>
                 <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->description->content}}</textarea>
             </div>
 
             <div class="mb-4">
-                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Veida nosaukums:</label>
+                <label for="placeDescription" class="block text-sm font-medium text-gray-700 mb-1">Piemiņas vietas apraksts:</label>
+                <textarea id="placeDescription" name="placeDescription" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->placeDescription->content}}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Tips:</label>
                 <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
                     @foreach ($types as $type)
                     <option value="{{ $type->id }}" {{ $type->id == $monument->type_id ? 'selected' : '' }}>

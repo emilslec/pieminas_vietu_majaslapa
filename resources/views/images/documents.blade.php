@@ -12,14 +12,12 @@
 
 <body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- Include the small navbar component -->
     <x-navbar />
-    <!-- resources/views/components/small-navbar.blade.php -->
 
     <x-smallnavbar type="show" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-images :images="$monument->oldImages" name="Vēsturiskie attēli" />
+    <x-images :images="$monument->documents" name="Citi dokumenti" />
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

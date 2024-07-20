@@ -27,6 +27,6 @@
         <input type="file" name="image" class="w-full p-2 border border-gray-300 rounded-lg">
     </div>
     <div class="flex justify-end">
-        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Pievienot bildi</button>
+        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Pievienot attēlu</button>
     </div>
 </form>

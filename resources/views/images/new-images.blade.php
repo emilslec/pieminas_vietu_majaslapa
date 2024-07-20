@@ -17,7 +17,7 @@
     <x-smallnavbar type="show" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-images :images="$monument->newImages" name="Jaunie" />
+    <x-images :images="$monument->newImages" name="Aktuālie attēli" />
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
