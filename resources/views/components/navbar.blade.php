@@ -7,7 +7,7 @@
             <div class="md:flex text-xl items-center space-x-10">
                 <!-- Increased spacing between items -->
                 <a href="{{ route('monuments.create') }}" class=" hover:text-stone-200">Pievienot objektu</a>
-                <a href="{{ route('types.index') }}" class=" hover:text-stone-200">Pārvaldīt objektu veidus</a>
+                <a href="{{ route('types.index') }}" class=" hover:text-stone-200">Pārvaldīt objektu tipus</a>
                 <a href="#" class=" hover:text-stone-200">Autorizēties</a>
             </div>
         </div>

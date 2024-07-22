@@ -53,6 +53,10 @@
                     <label class="font-semibold">Atrašanās vieta:</label>
                     <span>{{ $monument->location }}</span>
                 </div>
+                <div class="flex flex-row items-center space-x-2">
+                    <label class="font-semibold">Iesaistītās personas:</label>
+                    <span>{{ $monument->people }}</span>
+                </div>
                 <div>
                     <label class="font-semibold">Notikuma apraksts:</label>
                     <p class="text-sm mb-4">{{ $monument->description->content }}</p> <!-- Changed text-lg to text-sm -->

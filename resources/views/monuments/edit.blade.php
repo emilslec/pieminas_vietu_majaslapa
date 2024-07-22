@@ -35,7 +35,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="people" class="block text-sm font-medium text-gray-700 mb-1">Saistītās personas:</label>
+                <label for="people" class="block text-sm font-medium text-gray-700 mb-1">Iesaistītās personas:</label>
                 <input type="text" id="people" name="people" value="{{$monument->people}}" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
