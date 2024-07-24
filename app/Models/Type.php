@@ -11,8 +11,8 @@ class Type extends Model
     public $timestamps = false;
 
     protected $fillable = ['title'];
-    public function object()
+    public function monuments()
     {
-        return $this->hasMany(Object::class);
+        return $this->belongsToMany(Monument::class);
     }
 }

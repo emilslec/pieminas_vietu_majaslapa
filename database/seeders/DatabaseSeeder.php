@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Type;
 use App\Models\Monument;
 use App\Models\Description;
+use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,11 +20,11 @@ class DatabaseSeeder extends Seeder
 
         $m = Monument::create([
             'title' => 'Brīvības piemineklis', 'state' => 'rīgas', 'location' => 'Lielasi skapis pa labi',
-            'people' => 'Jānis lielasi, pēteris', 'type_id' => $t->id
+            'people' => 'Jānis lielasi, pēteris', 'cover' => 'old'
         ]);
         $m1 = Monument::create([
             'title' => 'Piemērs 24', 'state' => 'jūrmalas', 'location' => 'Lielasi skapis pa klreisi',
-            'people' => 'Jānis lielasi', 'type_id' => $t1->id
+            'people' => 'Jānis lielasi', 'cover' => 'new'
         ]);
 
         $d = Description::create(['content' => 'Labais lielasi piemeērs', 'monument_id' => $m1->id]);

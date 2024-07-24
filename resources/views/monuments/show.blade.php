@@ -25,11 +25,7 @@
         <div class="bg-white rounded-lg shadow p-6 mb-6 flex justify-between items-start">
             <!-- Image Section -->
             <div class="w-1/4 p-4">
-                @isset ($monument->oldImages[0])
-                <img alt="Monument Image" class="w-full h-auto rounded-lg shadow" src="{{asset('storage/' . $monument->oldImages[0]->path)}}">
-                @else
-                <img alt="Monument Image" class="w-full h-auto rounded-lg shadow" src="{{asset('storage/images/default.png')}}">
-                @endif
+                <img alt="Monument Image" class="w-full h-auto rounded-lg shadow" src="{{  $monument->coverPath() }}">
             </div>
 
             <!-- Content Section -->
@@ -42,8 +38,10 @@
                     <span>{{ $monument->id }}</span>
                 </div>
                 <div class="flex flex-row items-center space-x-2">
-                    <label class="font-semibold">Tips:</label>
-                    <span>{{ $monument->type->title }}</span>
+                    <label class="font-semibold">Objeka tipi:</label>
+                    @foreach ($monument->types as $type)
+                    <span>{{ $type->title }},</span>
+                    @endforeach
                 </div>
                 <div class="flex flex-row items-center space-x-2">
                     <label class="font-semibold">Pilsēta vai pagasts:</label>

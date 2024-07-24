@@ -12,51 +12,56 @@
 
     <x-navbar />
     <div class="container mx-auto px-4">
-        <h1 class="text-3xl font-bold my-6 text-center">Izveidot</h1>
 
         <form action="{{ route('monuments.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
             @csrf
             @method('POST')
 
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Nosaukums:</label>
+                <label for="title" class="block text-lg font-semibold mb-2 text-gray-700">Nosaukums:</label>
                 <input type="text" id="title" name="title" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
             <div class="mb-4">
-                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">Pilsēta vai pagasts:</label>
+                <label for="state" class="block text-lg font-semibold mb-2 text-gray-700">Pilsēta vai pagasts:</label>
                 <input type="text" id="state" name="state" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
             <div class="mb-4">
-                <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Atrašānās vietas piezīmes:</label>
+                <label for="location" class="block text-lg font-semibold mb-2 text-gray-700">Atrašānās vietas piezīmes:</label>
                 <input type="text" id="location" name="location" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
             <div class="mb-4">
-                <label for="people" class="block text-sm font-medium text-gray-700 mb-1">Saistītās personas:</label>
+                <label for="people" class="block text-lg font-semibold mb-2 text-gray-700">Saistītās personas:</label>
                 <input type="text" id="people" name="people" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Notikuma apraksts:</label>
+                <label for="cover" class="block text-lg font-semibold mb-2 text-gray-700">Sākuma bildes veids:</label>
+                <select id="cover" name="cover" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="old">Vēsturiska</option>
+                    <option value="new">Aktuāla</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label for="types" class="block text-lg font-semibold mb-2 text-gray-700">Tipi:</label>
+                <select name="types[]" id="types" multiple class="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                    @foreach ($types as $type)
+                    <option value="{{ $type->id }}" class="py-2 px-4 hover:bg-gray-100">{{ $type->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="description" class="block text-lg font-semibold mb-2 text-gray-700">Notikuma apraksts:</label>
                 <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
             </div>
 
             <div class="mb-4">
-                <label for="placeDescription" class="block text-sm font-medium text-gray-700 mb-1">Piemiņas vietas apraksts:</label>
+                <label for="placeDescription" class="block text-lg font-semibold mb-2 text-gray-700">Piemiņas vietas apraksts:</label>
                 <textarea id="placeDescription" name="placeDescription" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
-            </div>
-
-            <div class="mb-4">
-                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Veida nosaukums:</label>
-                <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
-                    @foreach ($types as $type)
-                    <option value="{{ $type->id }}">
-                        {{ $type->title }}
-                    </option>
-                    @endforeach
-                </select>
             </div>
 
             <div class="flex justify-end">

@@ -40,11 +40,11 @@
                     <input type="text" id="number" name="number" value="{{ request('number') }}" class="w-full p-2 border border-gray-300 rounded-lg">
                 </div>
                 <div>
-                    <label for="category" class="block font-semibold mb-1">Tips</label>
-                    <select name="category" id="category" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <label for="type" class="block font-semibold mb-1">Tips</label>
+                    <select name="type" id="type" class="w-full p-2 border border-gray-300 rounded-lg">
                         <option value="">Izvēlieties tipu...</option>
                         @foreach ($types as $type)
-                        <option value="{{ $type->id }}" @if ($type->id == request()->query('category')) selected @endif>{{ $type->title }}</option>
+                        <option value="{{ $type->id }}" @if ($type->id == request()->query('type')) selected @endif>{{ $type->title }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -59,11 +59,8 @@
         @endif
         @foreach ($monuments as $monument)
         <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex items-start">
-            @isset ($monument->oldImages[0])
-            <img src="{{ asset('storage/' . $monument->oldImages[0]->path) }}" alt="bilde" class="object-cover h-40 w-40 shadow-md mr-6">
-            @else
-            <img src="{{ asset('storage/images/default.png') }}" alt="Monument Image" class="object-cover h-40 w-40 shadow-md mr-6">
-            @endif
+            <img src="{{  $monument->coverPath() }}" alt="bilde" class="object-cover h-40 w-40 shadow-md mr-6">
+
             <div>
                 <h2 class="text-2xl font-semibold mb-2">
                     <a href="{{ route('monuments.show', $monument->id) }}" class="text-orange-500 hover:underline">{{ $monument->title }}</a>
@@ -80,7 +77,9 @@
                 </div>
                 <div class="flex flex-row items-center space-x-2">
                     <label class="font-semibold">Tips:</label>
-                    <span>{{ $monument->type->title }}</span>
+                    @foreach ($monument->types as $type)
+                    <span>{{ $type->title }},</span>
+                    @endforeach
                 </div>
                 <div class="flex flex-row items-center space-x-2">
                     <label class="font-semibold">Piilsēta vai pagasts:</label>

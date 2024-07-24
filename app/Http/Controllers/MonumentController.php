@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Description;
 use App\Models\Monument;
+use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -30,8 +31,11 @@ class MonumentController extends Controller
             $monumentsQuery = $monumentsQuery->where('id', $request->number);
         }
 
-        if ($request->filled('category')) {
-            $monumentsQuery = $monumentsQuery->where('type_id', $request->category);
+        if ($request->filled('type')) {
+            $type_id = $request->type;
+            $monumentsQuery = $monumentsQuery->whereHas('types', function ($query) use ($type_id) {
+                $query->where('types.id', $type_id);
+            });
         }
 
         if ($request->filled('person')) {
@@ -70,7 +74,7 @@ class MonumentController extends Controller
     public function store(Request $request)
     {
         if (
-            $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
+            $request->title == null || $request->description == null || $request->types == null || $request->state == null || $request->location == null
             || $request->people == null || $request->placeDescription == null
         ) {
             return redirect()->back();
@@ -78,10 +82,10 @@ class MonumentController extends Controller
 
         $m = Monument::create([
             'title' => $request->title,
-            'type_id' => $request->type,
             'state' => $request->state,
             'location' => $request->location,
-            'people' => $request->people
+            'people' => $request->people,
+            'cover' => $request->cover
         ]);
 
         $d = Description::create([
@@ -93,6 +97,10 @@ class MonumentController extends Controller
             'content' => $request->description,
             'monument_id' => $m->id,
         ]);
+
+        foreach ($request->types as $type_id) {
+            $m->types()->attach($type_id);
+        }
 
 
         return redirect()->route('monuments.show', $m);
@@ -135,7 +143,8 @@ class MonumentController extends Controller
     {
         $monument = Monument::findOrFail($id);
         $types = Type::all();
-        return view('monuments.edit', compact('monument', 'types'));
+        $curTypes = $monument->types->pluck('id')->toArray();
+        return view('monuments.edit', compact('monument', 'types', 'curTypes'));
     }
 
     public function editOldImages(string $id)
@@ -162,8 +171,8 @@ class MonumentController extends Controller
     public function update(Request $request, string $id)
     {
         if (
-            $request->title == null || $request->description == null || $request->type == null || $request->state == null || $request->location == null
-            || $request->people == null || $request->placeDescription == null
+            $request->title == null || $request->description == null || $request->types == null || $request->state == null || $request->location == null
+            || $request->people == null || $request->cover == null || $request->placeDescription == null
         ) {
             return redirect()->back();
         }
@@ -171,10 +180,10 @@ class MonumentController extends Controller
         $m = Monument::findOrFail($id);
 
         $m->title = $request->title;
-        $m->type_id = $request->type;
         $m->state = $request->state;
         $m->location = $request->location;
         $m->people = $request->people;
+        $m->cover = $request->cover;
         $m->save();
 
         $d = $m->description;
@@ -186,6 +195,8 @@ class MonumentController extends Controller
 
         $d2->content = $request->placeDescription;
         $d2->save();
+
+        $m->types()->sync($request->types);
 
         return redirect()->route('monuments.show', $m);
     }

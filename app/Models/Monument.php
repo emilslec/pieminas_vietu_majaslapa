@@ -9,7 +9,7 @@ class Monument extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'type_id', 'state', 'location', 'people'];
+    protected $fillable = ['title', 'state', 'location', 'people', 'cover'];
 
     public function oldImages()
     {
@@ -23,9 +23,9 @@ class Monument extends Model
     {
         return $this->hasMany(Document::class);
     }
-    public function type()
+    public function types()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsToMany(Type::class);
     }
     public function description()
     {
@@ -34,5 +34,16 @@ class Monument extends Model
     public function placeDescription()
     {
         return $this->hasOne(PlaceDescription::class);
+    }
+
+    public function coverPath()
+    {
+        if ($this->cover === 'new' && $this->newImages->isNotEmpty()) {
+            return asset('storage/' . $this->newImages->first()->path);
+        } elseif ($this->cover === 'old' && $this->oldImages->isNotEmpty()) {
+            return asset('storage/' . $this->oldImages->first()->path);
+        }
+
+        return asset('storage/images/default.png'); // Default image if no cover is found
     }
 }
