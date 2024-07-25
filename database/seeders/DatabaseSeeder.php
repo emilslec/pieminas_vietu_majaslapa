@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Type;
 use App\Models\Monument;
 use App\Models\Description;
-use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -32,5 +32,7 @@ class DatabaseSeeder extends Seeder
 
         $d = PlaceDescription::create(['content' => 'dsa', 'monument_id' => $m1->id]);
         $d2 = PlaceDescription::create(['monument_id' => $m->id, 'content' => 'dsa padsemds gddkeiedds dkiem']);
+
+        User::create(['email' => "a@a", 'password' => "a"]);
     }
 }

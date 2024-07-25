@@ -47,6 +47,7 @@
 
             <div class="mb-6">
                 <label for="types" class="block text-lg font-semibold mb-2 text-gray-700">Tipi:</label>
+                <p class="text-m text-gray-700 mb-2">Lai izvēlētos vairākus tipus, turiet ctrl taustiņu.</p>
                 <select name="types[]" id="types" multiple class="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
                     @foreach ($types as $type)
                     <option value="{{ $type->id }}" class="py-2 px-4 hover:bg-gray-100">{{ $type->title }}</option>

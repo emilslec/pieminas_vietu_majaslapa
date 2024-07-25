@@ -7,6 +7,7 @@
                 <a href=" {{ route('monuments.' . $type .  '.newImages', $id) }}" class="ml-4  hover:text-blue-600">Aktuālie attēli</a>
                 <a href=" {{ route('monuments.' . $type .  '.documents', $id) }}" class="ml-4  hover:text-blue-600">Citi dokumenti</a>
             </div>
+            @auth
             @if ($type == "show")
             <div class="md:flex items-center space-x-4">
                 <form action="{{ route('monuments.edit', $id)}}" method="GET">
@@ -21,6 +22,7 @@
                 <button type="submit" onclick="return confirm('Vai Jūs patiešām vēlaties dzēst objektu?')" class="bg-amber-500 text-white py-2 px-4 rounded hover:bg-amber-700">Dzēst objektu</button>
             </form>
         </div>
+        @endif
         @endif
     </div>
     </div>
