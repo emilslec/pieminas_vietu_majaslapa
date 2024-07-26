@@ -23,9 +23,6 @@ Route::middleware('auth')->group(function () {
 
     // Route::delete('/monuments/{id}/destroy', [MonumentController::class, 'destroy'])->name('monuments.destroy');
 
-    Route::get('/monuments/{id}/old-images', [MonumentController::class, 'showOldImages'])->name('monuments.show.oldImages');
-    Route::get('/monuments/{id}/new-images', [MonumentController::class, 'showNewImages'])->name('monuments.show.newImages');
-    Route::get('/monuments/{id}/documents', [MonumentController::class, 'showDocuments'])->name('monuments.show.documents');
 
     Route::get('/monuments/edit/{id}/old-images', [MonumentController::class, 'editOldImages'])->name('monuments.edit.oldImages');
     Route::get('/monuments/edit/{id}/new-images', [MonumentController::class, 'editNewImages'])->name('monuments.edit.newImages');
@@ -40,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/images/destroyDocument/{image_id}', [ImageController::class, 'destroyDocument'])->name('images.destroyDocument');
 });
 
+Route::get('/monuments/{id}/old-images', [MonumentController::class, 'showOldImages'])->name('monuments.show.oldImages');
+Route::get('/monuments/{id}/new-images', [MonumentController::class, 'showNewImages'])->name('monuments.show.newImages');
+Route::get('/monuments/{id}/documents', [MonumentController::class, 'showDocuments'])->name('monuments.show.documents');
 Route::get('/monuments', [MonumentController::class, 'index'])->name('monuments.index');
 Route::get('/monuments/{id}', [MonumentController::class, 'show'])->name('monuments.show');
 

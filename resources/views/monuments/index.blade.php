@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pieminekļi</title>
     @vite('resources/css/app.css')
-
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
-
     <x-navbar />
 
     <div class="container mx-auto px-4">
-        <button id="toggle-form" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mb-6">Slēpt meklēšanu</button>
+        <button id="toggle-form" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mb-6">
+            Slēpt meklēšanu
+        </button>
 
-        <form id="search-form" method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 block rounded-lg shadow-md mb-6">
-
+        <form id="search-form" method="GET" action="{{ route('monuments.index') }}" class="bg-white p-6 rounded-lg shadow-md mb-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label for="title" class="block font-semibold mb-1">Nosaukums</label>
@@ -54,18 +53,20 @@
                 <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
             </div>
         </form>
+
         @if($monuments->isEmpty())
-        <h3 class="text-3xl">Neviens objekts netika atrasts!</h3>
+        <h3 class="text-3xl text-center">Neviens objekts netika atrasts!</h3>
         @endif
+
         @foreach ($monuments as $monument)
-        <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex items-start">
-            <img src="{{  $monument->coverPath() }}" alt="bilde" class="object-cover h-40 w-40 shadow-md mr-6">
+        <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6">
+            <img src="{{  $monument->coverPath() }}" alt="bilde" class="object-cover h-40 w-40 rounded-lg shadow-md">
 
             <div>
                 <h2 class="text-2xl font-semibold mb-2">
                     <a href="{{ route('monuments.show', $monument->id) }}" class="text-orange-500 hover:underline">{{ $monument->title }}</a>
                 </h2>
-                <div class="flex flex-row items-center space-x-72">
+                <div class="flex flex-wrap items-center space-x-72">
                     <div>
                         <label class="font-semibold">Numurs:</label>
                         <span>{{ $monument->id }}</span>
@@ -75,27 +76,31 @@
                         <span>{{ $monument->people }}</span>
                     </div>
                 </div>
-                <div class="flex flex-row items-center space-x-2">
-                    <label class="font-semibold">Tips:</label>
-                    @foreach ($monument->types as $type)
-                    <span>{{ $type->title }},</span>
-                    @endforeach
+                <div class="flex flex-wrap items-center space-x-2">
+                    <label class="font-semibold">Objeka tips/tipi:</label>
+                    <span>
+                        @foreach ($monument->types as $type)
+                        {{ $type->title }}{{ !$loop->last ? ',' : '' }}
+                        @endforeach
+                    </span>
                 </div>
-                <div class="flex flex-row items-center space-x-2">
+                <div class="flex flex-wrap items-center space-x-2">
                     <label class="font-semibold">Piilsēta vai pagasts:</label>
                     <span>{{ $monument->state }}</span>
                 </div>
-                <div class="flex flex-row items-center space-x-2">
+                <div class="flex flex-wrap items-center space-x-2">
                     <label class="font-semibold">Atrašanās vieta:</label>
                     <span>{{ $monument->location }}</span>
                 </div>
             </div>
         </div>
         @endforeach
+
         <div class="my-6">
             {{ $monuments->links() }}
         </div>
     </div>
+
     <script src="{{ asset('js/index.js') }}"></script>
 </body>
 
