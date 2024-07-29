@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+namespace App\Console\Commands;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+use Illuminate\Console\Command;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;

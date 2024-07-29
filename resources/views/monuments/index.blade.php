@@ -85,7 +85,7 @@
                     </span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
-                    <label class="font-semibold">Piilsēta vai pagasts:</label>
+                    <label class="font-semibold">Pilsēta vai pagasts:</label>
                     <span>{{ $monument->state }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
