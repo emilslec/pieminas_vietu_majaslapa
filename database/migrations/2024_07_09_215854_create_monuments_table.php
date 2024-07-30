@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('state');
             $table->string('location');
-            $table->string('people');
+            $table->string('people')->nullable();
             $table->string('cover');
             $table->timestamps();
         });

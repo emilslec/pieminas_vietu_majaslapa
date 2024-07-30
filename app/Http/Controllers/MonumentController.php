@@ -54,7 +54,7 @@ class MonumentController extends Controller
             $monumentsQuery->where('location', 'like', "%{$request->location}%");
         }
 
-        $monuments = $monumentsQuery->paginate(4)->withQueryString();
+        $monuments = $monumentsQuery->paginate(10)->withQueryString();
         $params = $request->monumentsQuery;
         return view('monuments.index', compact('monuments', 'types', 'params'));
     }
@@ -73,12 +73,6 @@ class MonumentController extends Controller
      */
     public function store(Request $request)
     {
-        if (
-            $request->title == null || $request->description == null || $request->types == null || $request->state == null || $request->location == null
-            || $request->people == null || $request->placeDescription == null
-        ) {
-            return redirect()->back();
-        }
 
         $m = Monument::create([
             'title' => $request->title,
@@ -98,10 +92,7 @@ class MonumentController extends Controller
             'monument_id' => $m->id,
         ]);
 
-        foreach ($request->types as $type_id) {
-            $m->types()->attach($type_id);
-        }
-
+        $m->types()->attach($request->types);
 
         return redirect()->route('monuments.show', $m);
     }
