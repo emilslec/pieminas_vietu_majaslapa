@@ -40,10 +40,20 @@
             </div>
 
             <div class="mb-4">
-                <label for="cover" class="block text-lg font-semibold mb-2">Sākuma bildes veids:</label>
+                <label for="cover" class="block text-lg font-semibold mb-2">Sākuma attēls:</label>
                 <select id="cover" name="cover" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="old" {{ $monument->cover == "old" ? 'selected' : '' }}>Vēsturiska</option>
-                    <option value="new" {{ $monument->cover == "new" ? 'selected' : '' }}>Aktuāla</option>
+                    <option value="old" {{ $monument->cover == "old" ? 'selected' : '' }}>Vēsturisks</option>
+                    <option value="new" {{ $monument->cover == "new" ? 'selected' : '' }}>Aktuāls</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label for="types" class="block text-lg font-semibold mb-2 text-gray-700">Tipi:</label>
+                <p class="text-m text-gray-700 mb-2">Lai izvēlētos vairākus tipus, turiet ctrl taustiņu.</p>
+                <select name="types[]" id="types" multiple class="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                    @foreach ($types as $type)
+                    <option value="{{ $type->id }}" class="py-2 px-4 hover:bg-gray-100" {{ in_array($type->id, $curTypes) ? 'selected' : '' }}>{{ $type->title }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -57,15 +67,6 @@
                 <textarea id="placeDescription" name="placeDescription" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->placeDescription->content}}</textarea>
             </div>
 
-            <div class="mb-6">
-                <label for="types" class="block text-lg font-semibold mb-2 text-gray-700">Tipi:</label>
-                <p class="text-m text-gray-700 mb-2">Lai izvēlētos vairākus tipus, turiet ctrl taustiņu.</p>
-                <select name="types[]" id="types" multiple class="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
-                    @foreach ($types as $type)
-                    <option value="{{ $type->id }}" class="py-2 px-4 hover:bg-gray-100" {{ in_array($type->id, $curTypes) ? 'selected' : '' }}>{{ $type->title }}</option>
-                    @endforeach
-                </select>
-            </div>
 
 
             <div class="flex justify-end">

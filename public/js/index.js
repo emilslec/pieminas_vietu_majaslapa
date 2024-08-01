@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("search-form");
 
     toggleButton.addEventListener("click", function () {
-        console.log(form.style.display);
         if (form.classList.contains("block")) {
             form.classList.remove("block");
             form.classList.add("hidden");

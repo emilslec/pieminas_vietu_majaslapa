@@ -1,16 +1,14 @@
-<nav class="bg-orange-500 text-white  mb-8 py-4">
+<nav class="bg-orange-500 text-white mb-8 py-4">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center mx-10 py-4">
-            <div class="text-4xl font-bold">
+        <div class="flex flex-wrap justify-between items-center mx-4 sm:mx-10 py-4">
+            <div class="text-3xl sm:text-4xl font-bold mb-2 sm:mb-0">
                 <a href="{{ route('monuments.index') }}">Sākums</a>
             </div>
-            <div class="md:flex text-xl items-center space-x-10">
-                <!-- Increased spacing between items -->
+            <div class="flex flex-col md:flex-row md:items-center text-lg sm:text-xl space-y-4 md:space-y-0 md:space-x-6 lg:space-x-10">
                 @guest
-                <!-- <a href="{{ route('types.index') }}" class=" hover:text-stone-200">Pārvaldīt objektu tipus</a> -->
                 <a href="{{ route('login') }}" class="hover:text-stone-200">Autorizēties</a>
                 @else
-                <a href="{{ route('monuments.create') }}" class=" hover:text-stone-200">Pievienot objektu</a>
+                <a href="{{ route('monuments.create') }}" class="hover:text-stone-200">Pievienot objektu</a>
                 <p class="">
                     Pievienojies kā: {{ auth()->user()->email }}
                 </p>
@@ -21,8 +19,6 @@
                     </button>
                 </form>
                 @endguest
-
-
             </div>
         </div>
     </div>

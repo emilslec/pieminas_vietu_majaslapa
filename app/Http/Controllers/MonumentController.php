@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MonumentRequest;
 use App\Models\Description;
 use App\Models\Monument;
 use App\Models\MonumentsTypes;
@@ -68,38 +69,33 @@ class MonumentController extends Controller
         return view('monuments.create', compact('types'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(MonumentRequest $request)
     {
 
+        $validated = $request->validated();
         $m = Monument::create([
-            'title' => $request->title,
-            'state' => $request->state,
-            'location' => $request->location,
-            'people' => $request->people,
-            'cover' => $request->cover
+            'title' => $validated['title'],
+            'state' => $validated['state'],
+            'location' => $validated['location'],
+            'people' => $validated['people'],
+            'cover' => $validated['cover']
         ]);
 
         $d = Description::create([
-            'content' => $request->description,
+            'content' => $validated['description'],
             'monument_id' => $m->id,
         ]);
 
         $d2 = PlaceDescription::create([
-            'content' => $request->description,
+            'content' => $validated['placeDescription'],
             'monument_id' => $m->id,
         ]);
 
-        $m->types()->attach($request->types);
+        $m->types()->attach($validated['types']);
 
         return redirect()->route('monuments.show', $m);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $monument = Monument::findOrFail($id);
@@ -127,9 +123,6 @@ class MonumentController extends Controller
         return view('images.documents', compact('monument'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $monument = Monument::findOrFail($id);
@@ -159,35 +152,30 @@ class MonumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(MonumentRequest $request, string $id)
     {
-        if (
-            $request->title == null || $request->description == null || $request->types == null || $request->state == null || $request->location == null
-            || $request->people == null || $request->cover == null || $request->placeDescription == null
-        ) {
-            return redirect()->back();
-        }
 
+        $validated = $request->validated();
         $m = Monument::findOrFail($id);
 
-        $m->title = $request->title;
-        $m->state = $request->state;
-        $m->location = $request->location;
-        $m->people = $request->people;
-        $m->cover = $request->cover;
+        $m->title = $validated['title'];
+        $m->state = $validated['state'];
+        $m->location = $validated['location'];
+        $m->people = $validated['people'];
+        $m->cover = $validated['cover'];
         $m->save();
 
         $d = $m->description;
 
-        $d->content = $request->description;
+        $d->content = $validated['description'];
         $d->save();
 
         $d2 = $m->placeDescription;
 
-        $d2->content = $request->placeDescription;
+        $d2->content = $validated['placeDescription'];
         $d2->save();
 
-        $m->types()->sync($request->types);
+        $m->types()->sync($validated['types']);
 
         return redirect()->route('monuments.show', $m);
     }

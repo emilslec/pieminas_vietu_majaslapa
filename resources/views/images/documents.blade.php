@@ -17,7 +17,7 @@
     <x-smallnavbar type="show" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-images :images="$monument->documents" name="Citi dokumenti" />
+    <x-images :id="$monument->id" type="Document" :images="$monument->documents" name="Citi dokumenti" />
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

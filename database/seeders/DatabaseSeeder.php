@@ -15,8 +15,14 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $t = Type::create(['title' => 'Piemineklis']);
-        $t1 = Type::create(['title' => 'Apbedījums']);
+        $t = Type::create(['title' => 'Piemineklis (Apaļskulptūra vai tamlīdzīgi)']);
+        $t1 = Type::create(['title' => 'Piemiņas zīme (plāksne vai kas necils)']);
+        $t1 = Type::create(['title' => 'Piemiņas vietas komplekss']);
+        $t = Type::create(['title' => 'Piemiņas vieta (bez izcēluma dabā)']);
+        $t1 = Type::create(['title' => 'Apbedījums (esošs vai simbolisks civilpersonai)']);
+        $t1 = Type::create(['title' => 'Apbedījums (esošs vai simbolisks cīnitājam, vai vairākiem']);
+        $t1 = Type::create(['title' => 'Karavīru kapi (arī vienai vai divām personām)']);
+        $t1 = Type::create(['title' => 'Cits tips']);
 
         $m = Monument::create([
             'title' => 'Brīvības piemineklis', 'state' => 'rīgas', 'location' => 'Lielasi skapis pa labi',

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreImageRequest extends FormRequest
+class MonumentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,15 @@ class StoreImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:16192',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'image.required' => 'Nepieciešams attēls.',
-            'image.image' => 'Failam jābut attēlam.',
-            'image.mimes' => 'Tikai JPEG, PNG un JPG formāti ir atļauti,',
-            'image.max' => 'Maksimālais izmērs 16 MB.',
+            'title' => 'required|string|max:255',
+            'state' => 'string|max:255',
+            'location' => 'string|max:255',
+            'people' => 'string|max:255',
+            'cover' => 'string|max:255',
+            'description' => 'string',
+            'placeDescription' => 'string',
+            'types' => 'array',
+            'types.*' => 'exists:types,id',
         ];
     }
 }

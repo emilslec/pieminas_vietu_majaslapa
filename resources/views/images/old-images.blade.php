@@ -19,7 +19,7 @@
     <x-smallnavbar type="show" :id="$monument->id" />
 
     <!-- Main Content -->
-    <x-images :images="$monument->oldImages" name="Vēsturiskie attēli" />
+    <x-images :id="$monument->id" type="Old" :images="$monument->oldImages" name="Vēsturiskie attēli" />
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

@@ -38,10 +38,10 @@
             </div>
 
             <div class="mb-4">
-                <label for="cover" class="block text-lg font-semibold mb-2 text-gray-700">Sākuma bildes veids:</label>
+                <label for="cover" class="block text-lg font-semibold mb-2 text-gray-700">Sākuma attēls:</label>
                 <select id="cover" name="cover" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="old">Vēsturiska</option>
-                    <option value="new">Aktuāla</option>
+                    <option value="old">Vēsturisks</option>
+                    <option value="new">Aktuāls</option>
                 </select>
             </div>
 
