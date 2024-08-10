@@ -23,6 +23,7 @@ class ImageController extends Controller
         OldImages::create([
             'monument_id' => $id,
             'path' => $path,
+            'description' => $request->description,
         ]);
 
         return redirect()->back();
@@ -38,6 +39,7 @@ class ImageController extends Controller
         NewImages::create([
             'monument_id' => $id,
             'path' => $path,
+            'description' => $request->description,
         ]);
 
         return redirect()->back();
@@ -53,6 +55,7 @@ class ImageController extends Controller
         Document::create([
             'monument_id' => $id,
             'path' => $path,
+            'description' => $request->description,
         ]);
 
         return redirect()->back();

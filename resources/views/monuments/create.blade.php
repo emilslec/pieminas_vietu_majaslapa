@@ -28,7 +28,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="location" class="block text-lg font-semibold mb-2 text-gray-700">Atrašānās vietas piezīmes:</label>
+                <label for="location" class="block text-lg font-semibold mb-2 text-gray-700">Atrašānās vieta vai adrese:</label>
                 <input type="text" id="location" name="location" value="" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 

@@ -5,7 +5,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MonumentController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\TypeController;
 
 Route::redirect('/', '/monuments');
 
@@ -13,7 +12,6 @@ Route::redirect('/', '/monuments');
 
 Route::middleware('auth')->group(function () {
     Route::resource('/images', ImageController::class);
-    Route::resource('/types', TypeController::class);
     Route::resource('/monuments', MonumentController::class)->except(['index', 'show']);
 
     // Route::get('/monuments/create', [MonumentController::class, 'create'])->name('monuments.create');

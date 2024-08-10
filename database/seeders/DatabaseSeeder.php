@@ -22,15 +22,21 @@ class DatabaseSeeder extends Seeder
         $t1 = Type::create(['title' => 'Apbedījums (esošs vai simbolisks civilpersonai)']);
         $t1 = Type::create(['title' => 'Apbedījums (esošs vai simbolisks cīnitājam, vai vairākiem']);
         $t1 = Type::create(['title' => 'Karavīru kapi (arī vienai vai divām personām)']);
-        $t1 = Type::create(['title' => 'Cits tips']);
+        $t1 = Type::create(['title' => 'Muzejs vai .........']);
 
         $m = Monument::create([
-            'title' => 'Brīvības piemineklis', 'state' => 'rīgas', 'location' => 'Lielasi skapis pa labi',
-            'people' => 'Jānis lielasi, pēteris', 'cover' => 'old'
+            'title' => 'Brīvības piemineklis',
+            'state' => 'rīgas',
+            'location' => 'Lielasi skapis pa labi',
+            'people' => 'Jānis lielasi, pēteris',
+            'cover' => 'old'
         ]);
         $m1 = Monument::create([
-            'title' => 'Piemērs 24', 'state' => 'jūrmalas', 'location' => 'Lielasi skapis pa klreisi',
-            'people' => 'Jānis lielasi', 'cover' => 'new'
+            'title' => 'Piemērs 24',
+            'state' => 'jūrmalas',
+            'location' => 'Lielasi skapis pa klreisi',
+            'people' => 'Jānis lielasi',
+            'cover' => 'new'
         ]);
 
         $d = Description::create(['content' => 'Labais lielasi piemeērs', 'monument_id' => $m1->id]);

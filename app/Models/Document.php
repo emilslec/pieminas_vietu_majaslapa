@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
-    protected $fillable = ['path', 'monument_id'];
+    protected $fillable = ['path', 'monument_id', 'description'];
     public function object()
     {
         return $this->belongsTo(Monument::class);

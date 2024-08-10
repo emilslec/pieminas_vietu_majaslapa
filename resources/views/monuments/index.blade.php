@@ -28,7 +28,7 @@
                         <input type="text" id="state" name="state" value="{{ request('state') }}" class="w-full p-2 border border-gray-300 rounded-lg">
                     </div>
                     <div>
-                        <label for="location" class="block font-semibold mb-1">Atrašanās vieta</label>
+                        <label for="location" class="block font-semibold mb-1">Atrašānās vieta vai adrese:</label>
                         <input type="text" id="location" name="location" value="{{ request('location') }}" class="w-full p-2 border border-gray-300 rounded-lg">
                     </div>
                     <div>
@@ -68,7 +68,7 @@
                     <h2 class="text-2xl font-semibold mb-2">
                         <a href="{{ route('monuments.show', $monument->id) }}" class="text-orange-500 hover:underline">{{ $monument->title }}</a>
                     </h2>
-                    <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-44">
                         <div>
                             <label class="font-semibold">Numurs:</label>
                             <span>{{ $monument->id }}</span>
@@ -91,7 +91,7 @@
                         <span>{{ $monument->state }}</span>
                     </div>
                     <div class="flex flex-wrap items-center space-x-2 mt-2">
-                        <label class="font-semibold">Atrašanās vieta:</label>
+                        <label class="font-semibold">Atrašānās vieta vai adrese:</label>
                         <span>{{ $monument->location }}</span>
                     </div>
                 </div>

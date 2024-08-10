@@ -1,6 +1,12 @@
 <div id="fullscreen-container" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
-    <img id="fullscreen-image" class="max-w-full max-h-full">
-    <button id="close-fullscreen" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded">Aizvērt</button>
+    <div class="relative flex flex-col w-full h-full">
+        <div class="flex justify-center items-center h-[90%]">
+            <img id="fullscreen-image" class="max-h-full object-contain">
+        </div>
+        <div id="image-description" class="w-full bg-white text-black py-3 px-6 absolute bottom-0 left-0 text-lg h-24 flex">
+        </div>
+        <button id="close-fullscreen" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded">Aizvērt</button>
+    </div>
 </div>
 <div class="container mx-auto px-4">
     <h2 class="text-2xl font-semibold my-6 text-center">{{$title}}</h2>
@@ -8,7 +14,8 @@
         @foreach ($images as $image)
         <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-between">
             <div class="w-3/4 h-48 flex justify-center items-center">
-                <img alt="bilde" src="{{ asset('storage/' . $image->path) }}" class="object-cover h-full w-full shadow" onclick="openFullscreen('{{ asset('storage/' . $image->path) }}')">
+                <img alt="bilde" src="{{ asset('storage/' . $image->path) }}" class="object-cover h-full w-full shadow"
+                    onclick="openFullscreen('{{ asset('storage/' . $image->path) }}', '{{ $image->description }}')">>
             </div>
             <form method="POST" action="{{ route('images.destroy' . $type, ['image_id' => $image->id]) }}" class="w-full flex justify-center items-center mt-4">
                 @csrf
@@ -25,6 +32,10 @@
     @method('POST')
     <div class="mb-4">
         <input type="file" name="image" class="w-full p-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+        <label for="description" class="block text-lg font-semibold mb-2 text-gray-700">Attēla anotācija:</label>
+        <textarea id="description" name="description" required class="w-full p-2 border border-gray-300 rounded-lg h-32"></textarea>
     </div>
     <div class="flex justify-end">
         <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Pievienot attēlu</button>

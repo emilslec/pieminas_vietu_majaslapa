@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('path');
+            $table->string('description');
             $table->foreignId('monument_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

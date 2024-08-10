@@ -9,7 +9,7 @@ class NewImages extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path', 'monument_id'];
+    protected $fillable = ['path', 'monument_id', 'description'];
     public function object()
     {
         return $this->belongsTo(Monument::class);

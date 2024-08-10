@@ -46,7 +46,7 @@
                     <span>{{ $monument->state }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
-                    <label class="font-semibold">Atrašanās vieta:</label>
+                    <label class="font-semibold">Atrašānās vieta vai adrese:</label>
                     <span>{{ $monument->location }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
