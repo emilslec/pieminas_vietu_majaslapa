@@ -1,13 +1,4 @@
-<div id="fullscreen-container" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
-    <div class="relative flex flex-col w-full h-full">
-        <div class="flex justify-center items-center h-[90%]">
-            <img id="fullscreen-image" class="max-h-full object-contain">
-        </div>
-        <div id="image-description" class="w-full bg-white text-black py-3 px-6 absolute bottom-0 left-0 text-lg h-24 flex">
-        </div>
-        <button id="close-fullscreen" class="absolute top-4 right-4 bg-gray-700 text-white px-4 py-2 rounded">Aizvērt</button>
-    </div>
-</div>
+<x-image-fulscreen />
 <div class="container mx-auto px-4">
     <h2 class="text-2xl font-semibold my-6 text-center">{{$title}}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

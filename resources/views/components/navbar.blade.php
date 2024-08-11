@@ -5,6 +5,7 @@
                 <a href="{{ route('monuments.index') }}">Sākums</a>
             </div>
             <div class="flex flex-col md:flex-row md:items-center text-lg sm:text-xl space-y-4 md:space-y-0 md:space-x-6 lg:space-x-10">
+                <a href="{{ route('monuments.pdf') }}" class="hover:text-stone-200">Pieminekļu saraksts pdf</a>
                 @guest
                 <a href="{{ route('login') }}" class="hover:text-stone-200">Autorizēties</a>
                 @else

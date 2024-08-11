@@ -9,6 +9,7 @@ use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -180,9 +181,18 @@ class MonumentController extends Controller
         return redirect()->route('monuments.show', $m);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function generatePdf()
+    {
+        // Retrieve all monuments
+        $monuments = Monument::select('id', 'title')->get();
+
+        // Load the view and pass the monuments data to it
+        $pdf = Pdf::loadView('monuments.pdf', compact('monuments'));
+
+        // Return the generated PDF
+        return $pdf->download('monuments.pdf');
+    }
+
     public function destroy(string $id)
     {
         $m = Monument::findOrFail($id);

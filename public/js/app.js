@@ -5,7 +5,7 @@ function openFullscreen(imageSrc, description) {
     const closeFullscreen = document.getElementById("close-fullscreen");
 
     fullscreenImage.src = imageSrc;
-    imageDescription.textContent = "Attēla anotācija: " + description; // Set the description text
+    imageDescription.textContent = description; // Set the description text
     fullscreenContainer.style.display = "flex";
 
     closeFullscreen.addEventListener("click", () => {

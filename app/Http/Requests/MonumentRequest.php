@@ -23,13 +23,13 @@ class MonumentRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'state' => 'string|max:255',
-            'location' => 'string|max:255',
-            'people' => 'string|max:255',
-            'cover' => 'string|max:255',
-            'description' => 'string',
-            'placeDescription' => 'string',
-            'types' => 'array',
+            'state' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'people' => 'required|string|max:255',
+            'cover' => 'required|string|max:255',
+            'description' => 'required|string',
+            'placeDescription' => 'required|string',
+            'types' => 'required|array|min:1',
             'types.*' => 'exists:types,id',
         ];
     }
