@@ -150,9 +150,6 @@ class MonumentController extends Controller
         return view('images.edit-documents', compact('monument'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(MonumentRequest $request, string $id)
     {
 
@@ -183,13 +180,13 @@ class MonumentController extends Controller
 
     public function generatePdf()
     {
-        // Retrieve all monuments
-        $monuments = Monument::select('id', 'title')->get();
+        //$monuments = Monument::select('id', 'title')->get();
+        $monuments = Monument::all()->chunk(100);
+        $pdf = PDF::loadView('monuments.pdf', compact('monuments'));
+        return $pdf->stream('monuments.pdf');
 
-        // Load the view and pass the monuments data to it
-        $pdf = Pdf::loadView('monuments.pdf', compact('monuments'));
+        // $pdf = Pdf::loadView('monuments.pdf', compact('monuments'));
 
-        // Return the generated PDF
         return $pdf->download('monuments.pdf');
     }
 

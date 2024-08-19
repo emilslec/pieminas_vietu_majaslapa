@@ -8,7 +8,7 @@ use App\Models\User;
 class AddUserCommand extends Command
 {
 
-    protected $signature = 'user:add {email} {password}';
+    protected $signature = 'user:add {username} {password}';
 
 
     protected $description = 'Add a new user';
@@ -16,11 +16,11 @@ class AddUserCommand extends Command
 
     public function handle()
     {
-        $email = $this->argument('email');
+        $username = $this->argument('username');
         $password = $this->argument('password');
 
         User::create([
-            'email' => $email,
+            'username' => $username,
             'password' => $password,
         ]);
 

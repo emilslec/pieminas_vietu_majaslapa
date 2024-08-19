@@ -8,7 +8,7 @@
                 <a href="{{ route('monuments.' . $type . '.documents', $id) }}" class="hover:text-blue-600">Citi dokumenti</a>
             </div>
             @auth
-            <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-32">
+            <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-32 items-center">
                 @if ($type == "show")
                 <form action="{{ route('monuments.edit', $id) }}" method="GET" class="flex justify-center">
                     <button type="submit" class="bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-700 w-full md:w-auto">Rediģēt objektu</button>
