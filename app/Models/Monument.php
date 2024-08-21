@@ -27,6 +27,10 @@ class Monument extends Model
     {
         return $this->belongsToMany(Type::class);
     }
+    public function intervals()
+    {
+        return $this->belongsToMany(Interval::class);
+    }
     public function description()
     {
         return $this->hasOne(Description::class);

@@ -31,6 +31,8 @@ class MonumentRequest extends FormRequest
             'placeDescription' => 'required|string',
             'types' => 'required|array|min:1',
             'types.*' => 'exists:types,id',
+            'intervals' => 'required|array|min:1',
+            'intervals.*' => 'exists:intervals,id',
         ];
     }
 }

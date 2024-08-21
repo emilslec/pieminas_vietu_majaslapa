@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MonumentRequest;
 use App\Models\Description;
+use App\Models\Interval;
 use App\Models\Monument;
 use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Exception\IOException;
+use Ramsey\Uuid\Type\Integer;
 
 class MonumentController extends Controller
 {
@@ -22,6 +25,7 @@ class MonumentController extends Controller
     {
 
         $types = Type::all();
+        $intervals = Interval::all();
         $monumentsQuery = Monument::query();
 
         if ($request->has('clear')) {
@@ -37,6 +41,13 @@ class MonumentController extends Controller
             $type_id = $request->type;
             $monumentsQuery = $monumentsQuery->whereHas('types', function ($query) use ($type_id) {
                 $query->where('types.id', $type_id);
+            });
+        }
+
+        if ($request->filled('interval')) {
+            $interval_id = $request->interval;
+            $monumentsQuery = $monumentsQuery->whereHas('intervals', function ($query) use ($interval_id) {
+                $query->where('intervals.id', $interval_id);
             });
         }
 
@@ -58,7 +69,7 @@ class MonumentController extends Controller
 
         $monuments = $monumentsQuery->paginate(10)->withQueryString();
         $params = $request->monumentsQuery;
-        return view('monuments.index', compact('monuments', 'types', 'params'));
+        return view('monuments.index', compact('monuments', 'types', 'intervals', 'params'));
     }
 
     /**S
@@ -67,7 +78,8 @@ class MonumentController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('monuments.create', compact('types'));
+        $intervals = Interval::all();
+        return view('monuments.create', compact('types', 'intervals'));
     }
 
     public function store(MonumentRequest $request)
@@ -93,6 +105,7 @@ class MonumentController extends Controller
         ]);
 
         $m->types()->attach($validated['types']);
+        $m->intervals()->attach($validated['intervals']);
 
         return redirect()->route('monuments.show', $m);
     }
@@ -128,8 +141,10 @@ class MonumentController extends Controller
     {
         $monument = Monument::findOrFail($id);
         $types = Type::all();
+        $intervals = Interval::all();
         $curTypes = $monument->types->pluck('id')->toArray();
-        return view('monuments.edit', compact('monument', 'types', 'curTypes'));
+        $curIntervals = $monument->intervals->pluck('id')->toArray();
+        return view('monuments.edit', compact('monument', 'types', 'curTypes', 'intervals', 'curIntervals'));
     }
 
     public function editOldImages(string $id)
@@ -174,20 +189,48 @@ class MonumentController extends Controller
         $d2->save();
 
         $m->types()->sync($validated['types']);
+        $m->intervals()->sync($validated['intervals']);
 
         return redirect()->route('monuments.show', $m);
     }
 
-    public function generatePdf()
+    public function generatePdf(Request $request)
     {
         //$monuments = Monument::select('id', 'title')->get();
-        $monuments = Monument::all()->chunk(100);
+        $monumentsQuery = Monument::query();
+
+        if ($request->filled('number')) {
+            $monumentsQuery = $monumentsQuery->where('id', $request->number);
+        }
+        if ($request->filled('type')) {
+            $type_id = $request->type;
+            $monumentsQuery = $monumentsQuery->whereHas('types', function ($query) use ($type_id) {
+                $query->where('types.id', $type_id);
+            });
+        }
+        if ($request->filled('interval')) {
+            $interval_id = $request->interval;
+            $monumentsQuery = $monumentsQuery->whereHas('intervals', function ($query) use ($interval_id) {
+                $query->where('intervals.id', $interval_id);
+            });
+        }
+        if ($request->filled('person')) {
+            $monumentsQuery->where('people', 'like', "%{$request->person}%");
+        }
+        if ($request->filled('title')) {
+            $monumentsQuery->where('title', 'like', "%{$request->title}%");
+        }
+        if ($request->filled('state')) {
+            $monumentsQuery->where('state', 'like', "%{$request->state}%");
+        }
+        if ($request->filled('location')) {
+            $monumentsQuery->where('location', 'like', "%{$request->location}%");
+        }
+
+        $monuments = $monumentsQuery->get()->chunk(100);
         $pdf = PDF::loadView('monuments.pdf', compact('monuments'));
+
         return $pdf->stream('monuments.pdf');
-
-        // $pdf = Pdf::loadView('monuments.pdf', compact('monuments'));
-
-        return $pdf->download('monuments.pdf');
     }
 
     public function destroy(string $id)

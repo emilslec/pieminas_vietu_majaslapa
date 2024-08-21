@@ -48,10 +48,22 @@
                             @endforeach
                         </select>
                     </div>
+                    <div>
+                        <label for="interval" class="block font-semibold mb-1">Hronoloģija</label>
+                        <select name="interval" id="interval" class="w-full p-2 border border-gray-300 rounded-lg">
+                            <option value="">Izvēlieties tipu...</option>
+                            @foreach ($intervals as $interval)
+                            <option value="{{ $interval->id }}" @if ($interval->id == request()->query('interval')) selected @endif>{{ $interval->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="flex flex-col md:flex-row md:space-x-4">
-                    <button type="submit" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mb-2 md:mb-0">Meklēt</button>
-                    <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
+                <div class="flex flex-col md:flex-row md:space-x-4 justify-between items-center">
+                    <div class="flex flex-col md:flex-row md:space-x-4">
+                        <button type="submit" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mb-2 md:mb-0">Meklēt</button>
+                        <button type="submit" name="clear" value="1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Notīrīt izvēli</button>
+                    </div>
+                    <a href="{{ route('monuments.pdf') }}?{{ request()->getQueryString() }}" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-700 mt-2 md:mt-0" target="_blank">Pdf fails ar pieminekļu nosaukumiem</a>
                 </div>
             </form>
         </section>
@@ -62,13 +74,14 @@
 
             @foreach ($monuments as $monument)
             <div class="bg-white p-5 rounded-lg shadow-md mb-5 flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6">
-                <img src="{{  $monument->coverPath() }}" alt="bilde" class="object-cover h-40 w-full md:w-40 rounded-lg shadow-md">
+                <img src="{{  $monument->coverPath() }}" alt="Objekta attēls" class="object-cover h-56 w-full md:w-56 rounded-lg shadow-md">
 
                 <div>
                     <h2 class="text-2xl font-semibold mb-2">
                         <a href="{{ route('monuments.show', $monument->id) }}" class="text-orange-500 hover:underline">{{ $monument->title }}</a>
                     </h2>
-                    <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-44">
+                    <!-- Adjust the layout to prevent overlapping on mobile -->
+                    <div class="flex flex-col space-y-2">
                         <div>
                             <label class="font-semibold">Numurs:</label>
                             <span>{{ $monument->id }}</span>
@@ -87,6 +100,14 @@
                         </span>
                     </div>
                     <div class="flex flex-wrap items-center space-x-2 mt-2">
+                        <label class="font-semibold">Objekta hronoloģija:</label>
+                        <span>
+                            @foreach ($monument->intervals as $interval)
+                            {{ $interval->title }}{{ !$loop->last ? ',' : '' }}
+                            @endforeach
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap items-center space-x-2 mt-2">
                         <label class="font-semibold">Pilsēta vai pagasts:</label>
                         <span>{{ $monument->state }}</span>
                     </div>
@@ -96,6 +117,7 @@
                     </div>
                 </div>
             </div>
+
             @endforeach
 
             <div class="my-6">

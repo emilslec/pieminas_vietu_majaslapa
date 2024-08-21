@@ -8,7 +8,6 @@
                 @guest
                 <a href="{{ route('login') }}" class="hover:text-stone-200">Autorizēties</a>
                 @else
-                <a href="{{ route('monuments.pdf') }}" class="hover:text-stone-200">Pdf fails ar pieminekļu nosaukumiem</a>
                 <a href="{{ route('monuments.create') }}" class="hover:text-stone-200">Pievienot objektu</a>
                 <p class="">
                     Pievienojies kā: {{ auth()->user()->username }}

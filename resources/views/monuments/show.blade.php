@@ -42,6 +42,14 @@
                     </span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
+                    <label class="font-semibold">Hronoloģija:</label>
+                    <span>
+                        @foreach ($monument->intervals as $interval)
+                        {{ $interval->title }}{{ !$loop->last ? ',' : '' }}
+                        @endforeach
+                    </span>
+                </div>
+                <div class="flex flex-wrap items-center space-x-2">
                     <label class="font-semibold">Pilsēta vai pagasts:</label>
                     <span>{{ $monument->state }}</span>
                 </div>
