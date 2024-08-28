@@ -38,7 +38,7 @@ composer install
 Copy the example environment file to create your .env file:
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 Update Environment Configuration
