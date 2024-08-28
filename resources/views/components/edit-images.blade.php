@@ -6,7 +6,7 @@
         <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-between">
             <div class="w-3/4 h-48 flex justify-center items-center">
                 <img alt="bilde" src="{{ asset('storage/' . $image->path) }}" class="object-cover h-full w-full shadow"
-                    onclick="openFullscreen('{{ asset('storage/' . $image->path) }}', '{{ $image->description }}')">>
+                    onclick="openFullscreen('{{ asset('storage/' . $image->path) }}', '{{ $image->description }}')">
             </div>
             <form method="POST" action="{{ route('images.destroy' . $type, ['image_id' => $image->id]) }}" class="w-full flex justify-center items-center mt-4">
                 @csrf
