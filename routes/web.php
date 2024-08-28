@@ -14,13 +14,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/images', ImageController::class);
     Route::resource('/monuments', MonumentController::class)->except(['index', 'show']);
 
-    // Route::get('/monuments/create', [MonumentController::class, 'create'])->name('monuments.create');
-    // Route::post('/monuments/store', [MonumentController::class, 'store'])->name('monuments.store');
-    // Route::get('/monuments/{id}/edit', [MonumentController::class, 'edit'])->name('monuments.edit');
-    // Route::put('/monuments/{id}/update', [MonumentController::class, 'update'])->name('monuments.update');
-
-    // Route::delete('/monuments/{id}/destroy', [MonumentController::class, 'destroy'])->name('monuments.destroy');
-
     Route::get('/monuments/pdf', [MonumentController::class, 'generatePdf'])->name('monuments.pdf');
 
     Route::get('/monuments/edit/{id}/old-images', [MonumentController::class, 'editOldImages'])->name('monuments.edit.oldImages');

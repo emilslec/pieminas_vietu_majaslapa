@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pieminekļu saraksts</title>
+    <title>Piemiņas vietu datubāze</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;

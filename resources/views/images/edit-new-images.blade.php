@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>{{$monument->title}}</title>
+    <title>Piemiņas vietu datubāze</title>
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">

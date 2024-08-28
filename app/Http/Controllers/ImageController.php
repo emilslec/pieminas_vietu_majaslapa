@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreImageRequest;
 use App\Models\Document;
-use Illuminate\Http\Request;
 use App\Models\NewImages;
 use App\Models\OldImages;
 use Illuminate\Support\Facades\Storage;

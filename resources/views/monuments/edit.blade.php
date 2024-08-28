@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rediģēt pieminekli</title>
+    <title>Rediģēt piemiņas vietu</title>
     @vite('resources/css/app.css') <!-- Ensure you have the Tailwind CSS included -->
 </head>
 
@@ -30,7 +30,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="location" class="block text-lg font-semibold mb-2">Atrašānās vieta vai adrese:</label>
+                <label for="location" class="block text-lg font-semibold mb-2">Atrašanās vieta vai adrese:</label>
                 <input type="text" id="location" name="location" value="{{$monument->location}}" required class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
 
@@ -76,10 +76,8 @@
                 <textarea id="placeDescription" name="placeDescription" required class="w-full p-2 border border-gray-300 rounded-lg h-32">{{$monument->placeDescription->content}}</textarea>
             </div>
 
-
-
             <div class="flex justify-end">
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Atjaunināt</button>
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Saglabāt</button>
             </div>
         </form>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
 
-    <title>{{ $monument->title }}</title>
+    <title>Piemiņas vietu datubāze</title>
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -34,7 +34,7 @@
                     <span>{{ $monument->id }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
-                    <label class="font-semibold">Objeka tips/tipi:</label>
+                    <label class="font-semibold">Objekta tips/tipi:</label>
                     <span>
                         @foreach ($monument->types as $type)
                         {{ $type->title }}{{ !$loop->last ? ',' : '' }}
@@ -54,7 +54,7 @@
                     <span>{{ $monument->state }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">
-                    <label class="font-semibold">Atrašānās vieta vai adrese:</label>
+                    <label class="font-semibold">Atrašanās vieta vai adrese:</label>
                     <span>{{ $monument->location }}</span>
                 </div>
                 <div class="flex flex-wrap items-center space-x-2">

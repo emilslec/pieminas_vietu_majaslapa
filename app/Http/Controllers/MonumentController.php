@@ -6,15 +6,12 @@ use App\Http\Requests\MonumentRequest;
 use App\Models\Description;
 use App\Models\Interval;
 use App\Models\Monument;
-use App\Models\MonumentsTypes;
 use App\Models\PlaceDescription;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\Storage;
-use League\CommonMark\Exception\IOException;
-use Ramsey\Uuid\Type\Integer;
 
 class MonumentController extends Controller
 {
